@@ -112,23 +112,182 @@ Telegram открывает Web App только по **HTTPS**. Cloudflare Page
 
 ---
 
-### Шаг 2.5 — Вариант C: деплой из Git (обновления одной командой)
+### Шаг 2.5 — Вариант C: деплой через Git (без Wrangler с твоего ПК)
 
-1. Выбери **Connect to Git**.
-2. Подключи GitHub (или GitLab) и выбери репозиторий с проектом (если репо ещё нет — создай и запушь проект).
-3. Настройки сборки:
-   - **Build command:** `npx expo export --platform web`
-   - **Build output directory:** `dist` (или то, что выводит Expo — смотри в логах `expo export`, иногда `web-build`).
-   - **Root directory:** оставь пустым или `/`.
-4. Сохрани и запусти деплой. Cloudflare соберёт проект и покажет URL вида **`https://твой-проект.pages.dev`**.
+Заливка идёт **с серверов Cloudflare** (они клонируют репо и собирают проект). С твоего компьютера нужен только доступ к **GitHub** (часто он есть даже когда до Cloudflare API достучаться не получается).
 
-При следующих обновлениях: пушишь код в Git — Cloudflare автоматически пересоберёт и обновит сайт.
+---
+
+#### Часть 1. Репозиторий на GitHub
+
+1. **Аккаунт GitHub**  
+   Если его нет — зарегистрируйся на [github.com](https://github.com).
+
+2. **Создать новый репозиторий**  
+   - На GitHub: **Create a new repository** (или плюс → New repository).  
+   - **Repository name:** например `memento-webapp` или `mnemotechnika`.  
+   - **Public.**  
+   - **Не** ставь галочки "Add a README" / "Add .gitignore" — репо должен быть пустым.  
+   - Нажми **Create repository**.
+
+3. **Подключить локальный проект к репозиторию и отправить код**  
+   В терминале (cmd или PowerShell), в папке проекта:
+
+   ```bash
+   cd c:\Users\oldos\mnemotechnika
+   git remote add origin https://github.com/ТВОЙ_ЛОГИН/memento-webapp.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+   Вместо `ТВОЙ_ЛОГИН` и `memento-webapp` подставь свой логин GitHub и имя репозитория.  
+   При первом `git push` GitHub может попросить войти (логин и пароль или токен). Если просит пароль — используй **Personal Access Token** (GitHub → Settings → Developer settings → Personal access tokens → Generate new token), права — хотя бы `repo`.
+
+   Если репозиторий уже был подключён (`git remote -v` показывает `origin`), тогда достаточно:
+   ```bash
+   git push -u origin main
+   ```
+
+---
+
+#### Часть 2. Cloudflare Pages + Git
+
+1. Зайди на [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages**.
+
+2. Выбери **Connect to Git** (не Upload assets).
+
+3. **Подключить GitHub**  
+   Нажми **Connect GitHub** (или **Connect Git provider** → GitHub).  
+   Разреши доступ Cloudflare к GitHub (выбери аккаунт, при необходимости «Authorize Cloudflare»).  
+   Если GitHub недоступен — Cloudflare поддерживает и GitLab.
+
+4. **Выбрать репозиторий**  
+   В списке репозиториев выбери тот, куда пушил проект (например `memento-webapp`).  
+   Нажми **Begin setup**.
+
+5. **Настройки сборки (Build configuration)**  
+   - **Project name:** можно оставить как есть (например `memento-webapp`) или переименовать.  
+   - **Production branch:** `main` (или та ветка, в которую ты пушишь).  
+   - **Build command:**  
+     ```bash
+     npx expo export --platform web
+     ```  
+   - **Build output directory:**  
+     ```bash
+     dist
+     ```  
+   - **Root directory:** оставь пустым (сборка из корня репо).  
+   - **Environment variables** (по желанию): если нужно зафиксировать версию Node, добавь переменную `NODE_VERSION` = `20` (или `18`). Для Expo 54 обычно подходит дефолтная Node у Cloudflare.
+
+   Папку **dist** в репозиторий пушить не нужно (она в `.gitignore`) — Cloudflare создаёт её у себя при выполнении команды сборки.
+
+6. Нажми **Save and Deploy**.
+
+7. Cloudflare запустит сборку: клонирует репо, ставит зависимости (`npm install`), выполняет `npx expo export --platform web` и публикует содержимое папки `dist`.  
+   Статус смотри на странице проекта в **Deployments**. Первый деплой может занять несколько минут.  
+   После успешного деплоя будет URL вида **`https://memento-webapp.pages.dev`**.
+
+---
+
+#### Часть 3. Обновления
+
+- Вносишь изменения в код локально.  
+- Делаешь коммит и пуш в ту же ветку (например `main`):
+  ```bash
+  git add .
+  git commit -m "описание изменений"
+  git push origin main
+  ```
+- Cloudflare сам подхватит новый коммит, заново выполнит сборку и обновит сайт.  
+- URL сайта не меняется; в настройках бота в Telegram ничего менять не нужно.
 
 ---
 
 ### Шаг 2.6 — Проверка
 
 Открой в браузере выданный Cloudflare URL (например `https://memento-webapp.pages.dev`). Должно открыться твоё приложение. Запомни этот **HTTPS-адрес** — он понадобится для бота.
+
+---
+
+### Шаг 2.6.1 — Проверить веб-сборку локально перед деплоем
+
+Чтобы не деплоить каждую правку «вслепую», можно один в один собрать и открыть то, что уедет на хостинг:
+
+1. **Сборка как для продакшена и запуск локального сервера:**
+   ```bash
+   npm run web:preview
+   ```
+   Команда сделает `expo export --platform web` и поднимет раздачу папки `dist` на **http://localhost:3000**.
+
+2. Открой в браузере **http://localhost:3000** и проверь приложение. Это та же сборка, что попадёт на Cloudflare.
+
+3. Когда всё ок — делай деплой (пуш в Git или Wrangler).
+
+**Быстрая проверка без сборки:** `npm run web` — запускает dev-сервер для web (hot reload). Удобно для разработки, но поведение может чуть отличаться от финальной сборки.
+
+---
+
+### Шаг 2.7 — Свой домен (Custom domain) и ошибка SSL
+
+Если подключил свой домен (например **memento-app.online**) и при открытии сайта появляется ошибка **«Этот сайт не может обеспечить безопасное соединение»** или **ERR_SSL_VERSION_OR_CIPHER_MISMATCH**, проверь по шагам ниже.
+
+#### 1. Запись DNS должна быть через Cloudflare (Proxied)
+
+- Зайди в **Cloudflare Dashboard** → выбери зону **memento-app.online** (или свой домен).
+- Открой **DNS** → **Records**.
+- Найди запись для твоего домена (типа `CNAME` на `memento-webapp.pages.dev` или `A`/`AAAA`).
+- У записи должен быть **оранжевый облак (Proxied)**. Если облако **серое (DNS only)** — нажми на него, чтобы включить **Proxied**.
+- Без Proxied Cloudflare не выдаёт свой SSL-сертификат, и браузер может показать ERR_SSL_VERSION_OR_CIPHER_MISMATCH.
+
+#### 2. Статус SSL-сертификата — Active
+
+- В той же зоне: **SSL/TLS** → **Edge Certificates**.
+- В блоке **Edge Certificates** найди сертификат типа **Universal**.
+- **Status** должен быть **Active**. Если **Pending** или **Initializing** — сертификат ещё выпускается (от 15 минут до 24 часов).
+- Если статус не Active: подожди до 24 часов. При необходимости можно временно **Pause Cloudflare** (Overview → кнопка **Pause**), подождать пока сертификат станет Active, затем снять паузу.
+
+#### 3. Custom domain в проекте Pages
+
+- **Workers & Pages** → выбери проект (например **memento-webapp**) → **Custom domains**.
+- Домен **memento-app.online** должен быть в списке и в статусе **Active**. Если домен только что добавлен, подожди несколько минут.
+
+#### 4. Где добавлен домен: зона Cloudflare или только в Pages
+
+- Если домен **полностью на Cloudflare** (ты менял NS у регистратора на Cloudflare) — пункты 1 и 2 делаются в зоне этого домена в Cloudflare.
+- Если DNS домена у регистратора (NS не Cloudflare), а в Pages ты только добавил Custom domain — тогда запись CNAME для домена должна быть у регистратора и вести на `memento-webapp.pages.dev`; в этом случае HTTPS для домена будет от регистратора или CDN, и ошибка может быть из-за их настроек. Надёжный вариант — перенести домен в Cloudflare (Add site → поменять NS у регистратора).
+
+После исправления подожди 1–5 минут и открой сайт снова (лучше в режиме инкогнито или с очисткой кэша).
+
+#### 5. Если ошибка везде (ПК, телефон, Telegram) — пошагово
+
+Когда **ERR_SSL_VERSION_OR_CIPHER_MISMATCH** появляется во всех клиентах, причина почти всегда в том, что для домена **нет активного Edge-сертификата** у Cloudflare. Сделай по порядку:
+
+**Шаг A. Статус сертификата**  
+- Зона **memento-app.online** → **SSL/TLS** → **Edge Certificates**.  
+- Найди **Universal SSL**. Если **Status** не **Active** (например Pending, Initializing, или ошибка) — переходи к шагу B.  
+- Если Active, проверь **SSL/TLS** → **Overview**: режим должен быть **Automatic** или **Full (Strict)** (не Full и не Off). Нажми **Save**, если менял.
+
+**Шаг B. Total TLS** — платная опция; если нет — пропусти.
+
+**Шаг C. Перевыпуск Universal SSL (бесплатно)**  
+- В той же зоне: **SSL/TLS** → **Edge Certificates**.  
+- Если есть кнопка или опция **Disable Universal SSL** — выключи, подожди 1–2 минуты, затем снова **Enable Universal SSL**. Так можно форсировать новую выдачу сертификата.  
+- Либо **Overview** → кнопка **Pause Cloudflare** (все трафик перестаёт идти через Cloudflare). Подожди 30–60 минут, зайди снова в **Edge Certificates** и проверь статус Universal. Если стал **Active** — нажми **Unpause**. Если всё ещё Pending — можно подождать до 24 часов с момента первого добавления домена.
+
+**Шаг E. Минимальная версия TLS**  
+- **SSL/TLS** → **Edge Certificates** → **Minimum TLS Version**.  
+- Поставь **TLS 1.2** (не 1.3), сохрани. Через пару минут проверь сайт снова.
+
+**Шаг F. Перевыпуск привязки домена к Pages**  
+- **Workers & Pages** → проект **memento-webapp** → **Custom domains**.  
+- Удали домен **memento-app.online** из списка. Подожди 2–3 минуты.  
+- Снова нажми **Set up a custom domain** и добавь **memento-app.online**. Дождись статуса **Active** и **SSL enabled**.  
+- В зоне **memento-app.online** в **DNS** убедись, что запись для корня (CNAME на `memento-webapp.pages.dev`) есть и с **Proxied** (оранжевое облако).  
+- Подожди 5–10 минут и открой https://memento-app.online.
+
+**Вариант через www (бесплатно):** Universal SSL надёжно покрывает поддомен **www**. В **DNS** измени запись для **www**: вместо A на 95.163.244.138 сделай **CNAME** → **memento-webapp.pages.dev** с **Proxied**. В **Pages** → **Custom domains** добавь **www.memento-app.online**. В боте укажи URL **https://www.memento-app.online** — часто этот адрес начинает работать, когда apex «висит» в Pending.
+
+**Временный обходной путь:** пока свой домен не открывается, в настройках бота в BotFather укажи URL **https://memento-webapp.pages.dev** — приложение будет работать без ошибки SSL. Когда memento-app.online (или www) заработает, смени URL обратно.
 
 ---
 

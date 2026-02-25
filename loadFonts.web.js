@@ -7,8 +7,10 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export function useFontsLoaded() {
-  return useFonts({
+  const [loaded, error] = useFonts({
     ...Ionicons.font,
     ...MaterialCommunityIcons.font,
   });
+  // При ошибке загрузки всё равно показываем приложение (иконки могут не отобразиться)
+  return [loaded || !!error];
 }

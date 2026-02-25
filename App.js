@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -61,8 +61,11 @@ function MainTabs() {
 
 const SPLASH_DURATION = 2000;
 
+const FONTS_LOAD_TIMEOUT_MS = 5000;
+
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
+  const [fontsLoadTimedOut, setFontsLoadTimedOut] = useState(false);
   const [fontsLoaded] = useFontsLoaded();
 
   useEffect(() => {
@@ -70,7 +73,16 @@ export default function App() {
     return () => clearTimeout(t);
   }, []);
 
-  if (!fontsLoaded) {
+  // На web: если шрифты не загрузились за 5 с — показываем приложение (не вешать экран)
+  useEffect(() => {
+    if (Platform.OS !== 'web') return;
+    const t = setTimeout(() => setFontsLoadTimedOut(true), FONTS_LOAD_TIMEOUT_MS);
+    return () => clearTimeout(t);
+  }, []);
+
+  const showApp = fontsLoaded || fontsLoadTimedOut;
+
+  if (!showApp) {
     const splashBg = '#0f1a26';
     return (
       <View style={{ flex: 1, backgroundColor: splashBg, justifyContent: 'center', alignItems: 'center' }}>
