@@ -6,11 +6,11 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
-  Image,
   ScrollView,
 } from 'react-native';
 import * as CatalogData from '../../data/index.js';
 import BackButton from '../../components/BackButton';
+import OptimizedImage from '../../components/OptimizedImage';
 
 const suitConfig = {
   'Т': { symbol: '♣', color: '#ffffff' },
@@ -367,7 +367,7 @@ export default function CodeLibrary({ navigation }) {
                 {getBckDisplay(item.num, item.code, item.catalogId)}
               </Text>
             </View>
-            {item.image && <Image source={item.image} style={styles.thumb} />}
+            {item.image && <OptimizedImage source={item.image} style={styles.thumb} />}
           </TouchableOpacity>
         )}
         ListEmptyComponent={<View style={styles.empty} />}

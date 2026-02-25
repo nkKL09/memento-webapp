@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import BackButton from '../../components/BackButton';
+import OptimizedImage from '../../components/OptimizedImage';
 
 const suitConfig = {
   'Т': { symbol: '♣', color: '#ffffff' },
@@ -72,7 +73,7 @@ export default function ReferenceCard({ route, navigation }) {
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {card.image && (
-          <Image source={card.image} style={styles.bigImage} resizeMode="contain" />
+          <OptimizedImage source={card.image} style={styles.bigImage} resizeMode="contain" />
         )}
 
         <Text style={styles.codeText}>{card.code}</Text>

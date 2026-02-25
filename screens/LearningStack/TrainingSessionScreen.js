@@ -5,12 +5,12 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Image,
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { loadCards } from './loadCards.js';
 import { getProgress, addKnownAndSave, completeAndReset } from './trainingProgress.js';
 import BackButton from '../../components/BackButton';
+import OptimizedImage from '../../components/OptimizedImage';
 
 const getCardId = (card) => (card && (card.num != null ? card.num : card.realName)) || '';
 
@@ -223,7 +223,7 @@ export default function TrainingSessionScreen() {
           ) : (
             <View style={styles.flippedContainer}>
               {currentCard.image && (
-                <Image source={currentCard.image} style={styles.image} resizeMode="contain" />
+                <OptimizedImage source={currentCard.image} style={styles.image} resizeMode="contain" />
               )}
               <Text style={styles.codeText}>{currentCard.code}</Text>
             </View>

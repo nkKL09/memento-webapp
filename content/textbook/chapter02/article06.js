@@ -247,10 +247,10 @@ export default {
 Владимир Козаренко`,
   sourceUrl: 'https://mnemotexnika.narod.ru/mmem_06.htm',
   images: {
-    mmem_06_mozg: require('../../../assets/images/textbook/chapter02/mmem_06_mozg.png'),
-    mmem_06_sokad: require('../../../assets/images/textbook/chapter02/mmem_06_sokad.png'),
-    mmem_06_s1: require('../../../assets/images/textbook/chapter02/mmem_06_s1.png'),
-    mmem_06_s2: require('../../../assets/images/textbook/chapter02/mmem_06_s2.png'),
-    mmem_06_s3: require('../../../assets/images/textbook/chapter02/mmem_06_s3.png'),
+    mmem_06_mozg: require('../../../assets/images/textbook/chapter02/mmem_06_mozg.webp'),
+    mmem_06_sokad: require('../../../assets/images/textbook/chapter02/mmem_06_sokad.webp'),
+    mmem_06_s1: require('../../../assets/images/textbook/chapter02/mmem_06_s1.webp'),
+    mmem_06_s2: require('../../../assets/images/textbook/chapter02/mmem_06_s2.webp'),
+    mmem_06_s3: require('../../../assets/images/textbook/chapter02/mmem_06_s3.webp'),
   },
 };

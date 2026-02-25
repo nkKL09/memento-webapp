@@ -1,9 +1,10 @@
 // screens/LearningStack/TextbookArticleScreen.js — просмотр одной статьи учебника
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, Modal, StyleSheet, ScrollView, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, TouchableWithoutFeedback, Modal, StyleSheet, ScrollView, Linking } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { setArticleRead, removeArticleRead, getReadArticleIds, isArticleRead } from './textbookRead.js';
 import BackButton from '../../components/BackButton';
+import OptimizedImage from '../../components/OptimizedImage';
 
 const BODY_COLOR = '#e2e8f0';
 const IMAGE_PLACEHOLDER = /^\[IMAGE:([^\]]+)\]$/;
@@ -169,7 +170,7 @@ export default function TextbookArticleScreen() {
             <ArticleTable key={idx} headers={seg.value.headers} rows={seg.value.rows} />
           ) : article.images && article.images[seg.value] ? (
             <TouchableOpacity key={idx} activeOpacity={1} onPress={() => setZoomedImageSource(article.images[seg.value])}>
-              <Image source={article.images[seg.value]} style={styles.articleImage} resizeMode="contain" />
+              <OptimizedImage source={article.images[seg.value]} style={styles.articleImage} resizeMode="contain" />
             </TouchableOpacity>
           ) : null
         )}
@@ -194,7 +195,7 @@ export default function TextbookArticleScreen() {
           <View style={styles.imageModalOverlay}>
             <View style={styles.imageModalContent} pointerEvents="box-none">
               {zoomedImageSource ? (
-                <Image key="zoomed" source={zoomedImageSource} style={styles.imageModalImage} resizeMode="contain" />
+                <OptimizedImage key="zoomed" source={zoomedImageSource} style={styles.imageModalImage} resizeMode="contain" />
               ) : null}
             </View>
           </View>

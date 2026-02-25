@@ -8,13 +8,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  Image,
   KeyboardAvoidingView,
   Platform,
   Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../components/BackButton';
+import OptimizedImage from '../../components/OptimizedImage';
 import { getCardByNum } from '../LearningStack/loadCards.js';
 
 /** Разбиение цифр: n%3===0 → все по 3; n%3===2 → тройки + одна пара; n%3===1 → (k-1) троек + две пары */
@@ -152,7 +152,7 @@ export default function NumberEncoderScreen() {
                   ) : null}
                 </View>
                 {card.image && (
-                  <Image source={card.image} style={styles.cardThumb} resizeMode="contain" />
+                  <OptimizedImage source={card.image} style={styles.cardThumb} resizeMode="contain" />
                 )}
               </TouchableOpacity>
             ))}
