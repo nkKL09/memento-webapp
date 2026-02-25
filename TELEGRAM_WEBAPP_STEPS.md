@@ -168,11 +168,11 @@ Telegram открывает Web App только по **HTTPS**. Cloudflare Page
 5. **Настройки сборки (Build configuration)**  
    - **Project name:** можно оставить как есть (например `memento-webapp`) или переименовать.  
    - **Production branch:** `main` (или та ветка, в которую ты пушишь).  
-   - **Build command:**  
+- **Build command:** (патч после сборки нужен, чтобы иконки отображались на проде и в Telegram)
      ```bash
-     npx expo export --platform web
-     ```  
-   - **Build output directory:**  
+     npx expo export --platform web && node scripts/patch-index-fonts.js
+     ```
+   - **Build output directory:**
      ```bash
      dist
      ```  
@@ -183,7 +183,7 @@ Telegram открывает Web App только по **HTTPS**. Cloudflare Page
 
 6. Нажми **Save and Deploy**.
 
-7. Cloudflare запустит сборку: клонирует репо, ставит зависимости (`npm install`), выполняет `npx expo export --platform web` и публикует содержимое папки `dist`.  
+7. Cloudflare запустит сборку: клонирует репо, ставит зависимости (`npm install`), выполняет команду сборки (в т.ч. `patch-index-fonts.js` для иконок) и публикует содержимое папки `dist`.  
    Статус смотри на странице проекта в **Deployments**. Первый деплой может занять несколько минут.  
    После успешного деплоя будет URL вида **`https://memento-webapp.pages.dev`**.
 

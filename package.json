@@ -7,8 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "web:export": "expo export --platform web",
-    "web:preview": "expo export --platform web && npx serve dist -l 3000"
+    "web:export": "expo export --platform web && node scripts/patch-index-fonts.js",
+    "web:preview": "expo export --platform web && node scripts/patch-index-fonts.js && npx serve dist -l 3000"
   },
   "dependencies": {
     "@likashefqet/react-native-image-zoom": "^4.3.0",
