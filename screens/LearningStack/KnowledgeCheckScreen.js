@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { loadCards } from './loadCards.js';
+import BackButton from '../../components/BackButton';
 
 function shuffleArray(arr) {
   const a = [...arr];
@@ -172,10 +173,8 @@ export default function KnowledgeCheckScreen() {
   if (cards.length === 0) {
     return (
       <View style={styles.container}>
+        <BackButton />
         <Text style={styles.header}>В каталоге нет карточек</Text>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Text style={styles.buttonText}>Назад</Text>
-        </TouchableOpacity>
       </View>
     );
   }
@@ -191,6 +190,7 @@ export default function KnowledgeCheckScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
     >
+      <BackButton />
       <Text style={styles.header}>{title} — Проверка знаний</Text>
       <Text style={styles.progressLabel}>
         Вопрос {index + 1} из {total}

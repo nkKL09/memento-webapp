@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 import { MODULES, generateTrainingSequence } from './trainingUtils';
 
 const EXAM_MODULES = MODULES.filter((m) => m.id === 'twoDigit' || m.id === 'threeDigit');
@@ -39,6 +40,7 @@ export default function ExamConfigScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+      <BackButton />
       <Text style={styles.header}>Экзамен</Text>
       <Text style={styles.subtitle}>Коэффициент способности запоминания</Text>
 

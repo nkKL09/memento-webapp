@@ -3,6 +3,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import BackButton from '../../components/BackButton';
 
 const SUIT_SYMBOLS = { 'Т': '♣', 'Ч': '♥', 'Б': '♦', 'П': '♠' };
 const SUIT_COLORS = { 'Т': '#ffffff', 'Ч': '#ff4d4d', 'Б': '#ff4d4d', 'П': '#ffffff' };
@@ -32,6 +33,7 @@ export default function CardMemorizationResultsScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator>
+      <BackButton />
       <Text style={styles.header}>Результаты</Text>
 
       <View style={styles.block}>

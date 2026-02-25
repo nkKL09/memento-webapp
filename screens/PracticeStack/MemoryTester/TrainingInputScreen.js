@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Keyboard, InteractionManager } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 import { isNumberModule } from './trainingUtils';
 import { MONTHS, DAYS } from './trainingUtils';
 
@@ -134,6 +135,7 @@ export default function TrainingInputScreen() {
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView ref={scrollRef} style={styles.scroll} contentContainerStyle={[styles.scrollContent, keyboardVisible && { paddingBottom: 280 }]} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+        <BackButton />
         <Text style={styles.header}>Введите запомненные {isNum ? 'числа' : 'значения'}</Text>
         <View style={styles.grid}>
           {Array.from({ length: n }, (_, i) => (

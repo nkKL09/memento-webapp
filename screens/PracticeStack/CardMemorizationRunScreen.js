@@ -14,6 +14,7 @@ import {
   InteractionManager,
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import BackButton from '../../components/BackButton';
 import playingCards from '../../data/playingCards.js';
 import { generateMathTasks, opSymbol } from './MemoryTester/mathTaskUtils';
 
@@ -177,10 +178,8 @@ export default function CardMemorizationRunScreen() {
   if (n === 0) {
     return (
       <View style={styles.container}>
+        <BackButton />
         <Text style={styles.header}>Нет данных</Text>
-        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-          <Text style={styles.buttonText}>Назад</Text>
-        </TouchableOpacity>
       </View>
     );
   }
@@ -193,6 +192,7 @@ export default function CardMemorizationRunScreen() {
     const color = suit ? SUIT_COLORS[suit] : '#ffffff';
     return (
       <View style={styles.container}>
+        <BackButton />
         <Text style={styles.phaseTitle}>Запоминание</Text>
         <Text style={styles.counter}>Карта {memIndex + 1} из {n}</Text>
         <View style={styles.cardFaceWrap}>
@@ -220,6 +220,7 @@ export default function CardMemorizationRunScreen() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
+          <BackButton />
           <Text style={styles.phaseTitle}>Простые примеры</Text>
           <Text style={styles.counter}>Математические примеры</Text>
           {mathTasks.map((task, i) => (
@@ -293,6 +294,7 @@ export default function CardMemorizationRunScreen() {
   };
   return (
     <View style={styles.container}>
+      <BackButton />
       <Text style={styles.phaseTitle}>Проверка</Text>
       <Text style={styles.counterLarge}>{checkIndex + 1} из {n}</Text>
       <ScrollView style={styles.gridScroll} contentContainerStyle={styles.gridContent} showsVerticalScrollIndicator={false}>
@@ -314,7 +316,6 @@ export default function CardMemorizationRunScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24', paddingTop: 18, paddingHorizontal: 16 },
   header: { fontSize: 22, color: '#ffffff', textAlign: 'center', marginTop: 20 },
-  backBtn: { backgroundColor: '#334155', marginTop: 20, paddingVertical: 14, borderRadius: 20, alignItems: 'center' },
   phaseTitle: { fontSize: 22, fontWeight: '600', color: '#ffffff', textAlign: 'center', marginBottom: 8 },
   counter: { fontSize: 16, color: '#94a3b8', textAlign: 'center', marginBottom: 16 },
   counterLarge: { fontSize: 24, fontWeight: '600', color: '#ffffff', textAlign: 'center', marginBottom: 12 },

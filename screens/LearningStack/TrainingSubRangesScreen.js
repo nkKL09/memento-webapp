@@ -10,6 +10,7 @@ import {
 import { useRoute, useNavigation, useFocusEffect } from '@react-navigation/native';
 import { getProgress } from './trainingProgress.js';
 import StarsView from './StarsView.js';
+import BackButton from '../../components/BackButton';
 
 export default function TrainingSubRangesScreen() {
   const route = useRoute();
@@ -108,6 +109,7 @@ export default function TrainingSubRangesScreen() {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
+      <BackButton />
       <Text style={styles.header}>{title}</Text>
 
       <View style={styles.tilesContainer}>

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 
 export default function IntroTestShowScreen() {
   const route = useRoute();
@@ -27,6 +28,7 @@ export default function IntroTestShowScreen() {
 
   return (
     <View style={styles.container}>
+      <BackButton />
       <Text style={styles.counter}>Число {index + 1} из 20</Text>
       <View style={styles.numberWrap}>
         <Text style={styles.number}>{current}</Text>

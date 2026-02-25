@@ -10,6 +10,7 @@ import {
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { loadCards } from './loadCards.js';
 import { getProgress, addKnownAndSave, completeAndReset } from './trainingProgress.js';
+import BackButton from '../../components/BackButton';
 
 const getCardId = (card) => (card && (card.num != null ? card.num : card.realName)) || '';
 
@@ -192,17 +193,16 @@ export default function TrainingSessionScreen() {
   if (!shuffleMode && cards.length === 0) {
     return (
       <View style={styles.container}>
+        <BackButton />
         <Text style={styles.header}>{headerTitle}</Text>
         <Text style={styles.emptyText}>Нет карточек для повторения</Text>
-        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-          <Text style={styles.buttonText}>Назад</Text>
-        </TouchableOpacity>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
+      <BackButton />
       <Text style={styles.header}>{headerTitle}</Text>
 
       <TouchableOpacity

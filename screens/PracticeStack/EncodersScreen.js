@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BackButton from '../../components/BackButton';
 
 const ENCODERS = [
   { id: 'phone', title: 'Номер телефона', description: '+7 (999) 123-45-67', screen: 'PhoneEncoderScreen' },
@@ -23,6 +24,7 @@ export default function EncodersScreen() {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
+      <BackButton />
       <Text style={styles.header}>Кодировщики</Text>
 
       <View style={styles.tilesContainer}>

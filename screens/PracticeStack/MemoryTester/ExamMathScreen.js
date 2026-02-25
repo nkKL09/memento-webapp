@@ -2,6 +2,7 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Keyboard, InteractionManager } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 import { generateMathTasks, opSymbol } from './mathTaskUtils';
 
 const FLASH_DURATION_MS = 500;
@@ -96,6 +97,7 @@ export default function ExamMathScreen() {
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView ref={scrollRef} style={styles.scroll} contentContainerStyle={[styles.scrollContent, keyboardVisible && { paddingBottom: 280 }]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+        <BackButton />
         <Text style={styles.counter}>Математические примеры</Text>
         {tasks.map((task, i) => (
           <View key={i} style={[styles.row, wrongFlash.includes(i) && styles.rowFlash]}>

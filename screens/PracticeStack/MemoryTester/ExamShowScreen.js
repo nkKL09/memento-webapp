@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 
 export default function ExamShowScreen() {
   const route = useRoute();
@@ -38,6 +39,7 @@ export default function ExamShowScreen() {
 
   return (
     <View style={styles.container}>
+      <BackButton />
       <View style={styles.valueWrap}>
         <Text style={styles.value} numberOfLines={2}>{current}</Text>
       </View>

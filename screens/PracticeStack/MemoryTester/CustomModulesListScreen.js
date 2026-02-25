@@ -2,6 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 import { getCustomModules } from './customModules';
 
 export default function CustomModulesListScreen() {
@@ -35,6 +36,7 @@ export default function CustomModulesListScreen() {
 
   return (
     <View style={styles.container}>
+      <BackButton />
       <Text style={styles.header}>Свои модули</Text>
       <Text style={styles.subtitle}>Создайте набор элементов (слов, фраз) и тренируйте память по ним в разделе «Тренировка».</Text>
       {list.length === 0 ? (

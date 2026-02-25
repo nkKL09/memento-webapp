@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, Modal, StyleSheet, ScrollView, Linking } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { setArticleRead, removeArticleRead, getReadArticleIds, isArticleRead } from './textbookRead.js';
+import BackButton from '../../components/BackButton';
 
 const BODY_COLOR = '#e2e8f0';
 const IMAGE_PLACEHOLDER = /^\[IMAGE:([^\]]+)\]$/;
@@ -148,10 +149,8 @@ export default function TextbookArticleScreen() {
   if (!article) {
     return (
       <View style={styles.container}>
+        <BackButton />
         <Text style={styles.header}>Статья не найдена</Text>
-        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-          <Text style={styles.backText}>← Назад</Text>
-        </TouchableOpacity>
       </View>
     );
   }
@@ -160,9 +159,7 @@ export default function TextbookArticleScreen() {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-        <Text style={styles.backText}>← Назад</Text>
-      </TouchableOpacity>
+      <BackButton />
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator>
         <Text style={styles.title}>{article.id} {article.title}</Text>
         {segments.map((seg, idx) =>
@@ -209,8 +206,6 @@ export default function TextbookArticleScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24', paddingTop: 18, paddingHorizontal: 20 },
-  backBtn: { marginBottom: 16 },
-  backText: { fontSize: 18, color: '#49c0f8', fontWeight: '600' },
   header: { fontSize: 22, color: '#ffffff', textAlign: 'center' },
   scroll: { flex: 1 },
   scrollContent: { paddingBottom: 60 },

@@ -21,26 +21,23 @@ export default function LearningStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: '#121e24' },
-        headerTintColor: '#ffffff',
-        headerTitleStyle: { fontWeight: '600', fontSize: 18 },
-        headerShadowVisible: false,
+        headerShown: false,
         headerBackVisible: false,
         headerLeft: () => null,
       }}
     >
-      <Stack.Screen name="LearningScreen" component={LearningScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="MnemotechnicsScreen" component={MnemotechnicsScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TextbookToc" component={TextbookTocScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TextbookArticle" component={TextbookArticleScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="MnemonicCodesScreen" component={MnemonicCodesScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="CodeLibrary" component={CodeLibrary} options={{ headerShown: false }} />
-      <Stack.Screen name="ReferenceCard" component={ReferenceCard} options={{ headerShown: false }} />
-      <Stack.Screen name="TrainingCatalogsScreen" component={TrainingCatalogsScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TrainingSubRangesScreen" component={TrainingSubRangesScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TrainingStaticCatalogScreen" component={TrainingStaticCatalogScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="KnowledgeCheckScreen" component={KnowledgeCheckScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TrainingSessionScreen" component={TrainingSessionScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="LearningScreen" component={LearningScreen} />
+      <Stack.Screen name="MnemotechnicsScreen" component={MnemotechnicsScreen} />
+      <Stack.Screen name="TextbookToc" component={TextbookTocScreen} />
+      <Stack.Screen name="TextbookArticle" component={TextbookArticleScreen} />
+      <Stack.Screen name="MnemonicCodesScreen" component={MnemonicCodesScreen} />
+      <Stack.Screen name="CodeLibrary" component={CodeLibrary} />
+      <Stack.Screen name="ReferenceCard" component={ReferenceCard} />
+      <Stack.Screen name="TrainingCatalogsScreen" component={TrainingCatalogsScreen} />
+      <Stack.Screen name="TrainingSubRangesScreen" component={TrainingSubRangesScreen} />
+      <Stack.Screen name="TrainingStaticCatalogScreen" component={TrainingStaticCatalogScreen} />
+      <Stack.Screen name="KnowledgeCheckScreen" component={KnowledgeCheckScreen} />
+      <Stack.Screen name="TrainingSessionScreen" component={TrainingSessionScreen} />
     </Stack.Navigator>
   );
 }

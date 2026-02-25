@@ -14,6 +14,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BackButton from '../../components/BackButton';
 import { getCardByNum } from '../LearningStack/loadCards.js';
 
 /** Разбиение цифр: n%3===0 → все по 3; n%3===2 → тройки + одна пара; n%3===1 → (k-1) троек + две пары */
@@ -106,6 +107,7 @@ export default function NumberEncoderScreen() {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
+        <BackButton />
         <Text style={styles.header}>Произвольное число</Text>
 
         <View style={styles.fieldRow}>

@@ -13,6 +13,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BackButton from '../../components/BackButton';
 import playingCards from '../../data/playingCards.js';
 
 const TIME_OPTIONS = [
@@ -59,6 +60,7 @@ export default function CardMemorizationInputScreen() {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
     >
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <BackButton />
         <Text style={styles.header}>Запоминание карт</Text>
         <Text style={styles.hint}>Сколько карт запомнить? (можно больше 52 — каждая выбирается случайно)</Text>
         <TextInput

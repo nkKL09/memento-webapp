@@ -14,6 +14,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BackButton from '../../components/BackButton';
 import { getCardByNum } from '../LearningStack/loadCards.js';
 import monthsData from '../../data/months.js';
 
@@ -121,6 +122,7 @@ export default function DateEncoderScreen() {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
+        <BackButton />
         <Text style={styles.header}>Дата</Text>
 
         <View style={styles.fieldRow}>

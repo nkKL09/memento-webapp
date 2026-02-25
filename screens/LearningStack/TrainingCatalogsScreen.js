@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import StarsView from './StarsView.js';
+import BackButton from '../../components/BackButton';
 
 const catalogs = [
   { id: '00-99', title: '00-99', type: 'numbers' },
@@ -38,6 +39,7 @@ export default function TrainingCatalogsScreen() {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
+      <BackButton />
       <Text style={styles.header}>Тренировка</Text>
 
       <View style={styles.tilesContainer}>

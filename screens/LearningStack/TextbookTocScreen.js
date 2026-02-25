@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-nati
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { textbookChapters } from '../../content/textbook/index.js';
 import { getReadArticleIds, isArticleRead } from './textbookRead.js';
+import BackButton from '../../components/BackButton';
 
 function ReadIcon({ read }) {
   return (
@@ -25,9 +26,7 @@ export default function TextbookTocScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-      <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
-        <Text style={styles.backText}>← Назад</Text>
-      </TouchableOpacity>
+      <BackButton />
       <Text style={styles.header}>Учебник мнемотехники 2002</Text>
       {textbookChapters.map((chapter) => (
         <View key={chapter.id} style={styles.chapterBlock}>
@@ -52,8 +51,6 @@ export default function TextbookTocScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
   content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 100 },
-  backBtn: { marginBottom: 12 },
-  backText: { fontSize: 18, color: '#49c0f8', fontWeight: '600' },
   header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 28 },
   chapterBlock: { marginBottom: 28 },
   chapterTitle: { fontSize: 20, fontWeight: '700', color: '#49c0f8', marginBottom: 12 },

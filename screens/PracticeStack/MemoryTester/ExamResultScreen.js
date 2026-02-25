@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 import { addExamResult, removeExamResult } from './examHistory';
 
 function formatCoefficient(k) {
@@ -59,6 +60,7 @@ export default function ExamResultScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <BackButton />
       <Text style={styles.header}>Результат экзамена</Text>
       <Text style={styles.score}>Правильно: {correctCount} из {total}</Text>
       <View style={styles.coefBlock}>

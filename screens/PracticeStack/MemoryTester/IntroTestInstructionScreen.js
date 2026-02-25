@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 import { generateIntroSequence } from './introTestUtils';
 
 export default function IntroTestInstructionScreen() {
@@ -14,6 +15,7 @@ export default function IntroTestInstructionScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <BackButton />
       <Text style={styles.header}>Вводное тестирование</Text>
       <Text style={styles.paragraph}>
         Будет показано 20 двузначных чисел. Постарайтесь запомнить их в порядке следования.

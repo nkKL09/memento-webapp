@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 
 export default function IntroTestResultScreen() {
   const route = useRoute();
@@ -16,6 +17,7 @@ export default function IntroTestResultScreen() {
 
   return (
     <View style={styles.container}>
+      <BackButton />
       <Text style={styles.header}>Результат</Text>
       <Text style={styles.score}>Правильно: {correctCount} из {total}</Text>
       <Text style={styles.interpretation}>{interpretation}</Text>

@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { useFontsLoaded } from './loadFonts';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { AppIcon } from './components/AppIcon';
 
 import HomeScreen from './screens/HomeScreen';
 import PracticeStack from './screens/PracticeStack/PracticeStack';
@@ -38,22 +38,22 @@ function MainTabs() {
       <Tab.Screen 
         name="Главная" 
         component={HomeScreen} 
-        options={{ tabBarIcon: ({ color }) => <Ionicons name="home" size={26} color={color} /> }} 
+        options={{ tabBarIcon: ({ color }) => <AppIcon name="home" size={26} color={color} /> }} 
       />
       <Tab.Screen 
         name="Обучение" 
         component={LearningStack}
-        options={{ tabBarIcon: ({ color }) => <Ionicons name="book" size={26} color={color} /> }} 
+        options={{ tabBarIcon: ({ color }) => <AppIcon name="book" size={26} color={color} /> }} 
       />
       <Tab.Screen 
         name="Практика" 
         component={PracticeStack} 
-        options={{ tabBarIcon: ({ color }) => <Ionicons name="barbell" size={26} color={color} /> }} 
+        options={{ tabBarIcon: ({ color }) => <AppIcon name="barbell" size={26} color={color} /> }} 
       />
       <Tab.Screen 
         name="Профиль" 
         component={ProfileScreen} 
-        options={{ tabBarIcon: ({ color }) => <Ionicons name="person" size={26} color={color} /> }} 
+        options={{ tabBarIcon: ({ color }) => <AppIcon name="person" size={26} color={color} /> }} 
       />
     </Tab.Navigator>
   );

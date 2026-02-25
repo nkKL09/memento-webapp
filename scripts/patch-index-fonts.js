@@ -53,4 +53,13 @@ if (fs.existsSync(assetsDir)) {
 }
 
 fs.writeFileSync(indexPath, html, 'utf8');
+
+// 3) Скопировать favicon.ico из assets в dist (если есть)
+const faviconSrc = path.join(__dirname, '..', 'assets', 'favicon.ico');
+const faviconDest = path.join(distDir, 'favicon.ico');
+if (fs.existsSync(faviconSrc)) {
+  fs.copyFileSync(faviconSrc, faviconDest);
+  console.log('scripts/patch-index-fonts.js: favicon.ico скопирован в dist.');
+}
+
 console.log('scripts/patch-index-fonts.js: index.html обновлён (base + preload шрифтов).');

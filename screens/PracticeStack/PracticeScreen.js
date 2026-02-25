@@ -2,8 +2,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { AppIcon } from '../../components/AppIcon';
 
 const ROW_ICON_SIZE = 24;
 const ROW_ICON_COLOR = '#49c0f8';
@@ -21,7 +20,7 @@ export default function PracticeScreen() {
         activeOpacity={0.8}
       >
         <View style={styles.titleRow}>
-          <MaterialCommunityIcons name="cards-outline" size={ROW_ICON_SIZE} color={ROW_ICON_COLOR} style={styles.titleIcon} />
+          <AppIcon name="cards-playing-outline" family="material" size={ROW_ICON_SIZE} color={ROW_ICON_COLOR} style={styles.titleIcon} />
           <Text style={styles.title}>Запоминание карт</Text>
         </View>
       </TouchableOpacity>
@@ -40,7 +39,7 @@ export default function PracticeScreen() {
         activeOpacity={0.8}
       >
         <View style={styles.titleRow}>
-          <Ionicons name="construct-outline" size={ROW_ICON_SIZE} color={ROW_ICON_COLOR} style={styles.titleIcon} />
+          <AppIcon name="construct-outline" size={ROW_ICON_SIZE} color={ROW_ICON_COLOR} style={styles.titleIcon} />
           <Text style={styles.title}>Инструменты</Text>
         </View>
         <Text style={styles.subtitle}>Кодировщики и помощники</Text>
@@ -66,7 +65,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   titleRow: { flexDirection: 'row', alignItems: 'center' },
-  titleIcon: { marginRight: 10 },
+  titleIcon: { marginRight: 14 },
   title: { fontSize: 20, fontWeight: '600', color: '#ffffff' },
   subtitle: { fontSize: 16, color: '#94a3b8', marginTop: 5 },
 });

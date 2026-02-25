@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 import { addCustomModule, updateCustomModule, removeCustomModule } from './customModules';
 
 export default function CustomModuleEditScreen() {
@@ -57,6 +58,7 @@ export default function CustomModuleEditScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+      <BackButton />
       <Text style={styles.header}>{isEdit ? 'Редактировать модуль' : 'Новый модуль'}</Text>
 
       <Text style={styles.label}>Название модуля</Text>

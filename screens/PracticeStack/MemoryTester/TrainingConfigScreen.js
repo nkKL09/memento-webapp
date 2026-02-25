@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 import { MODULES, generateTrainingSequence, isNumberModule, isCatalogModule } from './trainingUtils';
 import { getCustomModules } from './customModules';
 
@@ -78,6 +79,7 @@ export default function TrainingConfigScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+      <BackButton />
       <Text style={styles.header}>Тренировка</Text>
 
       <Text style={styles.label}>Модуль</Text>

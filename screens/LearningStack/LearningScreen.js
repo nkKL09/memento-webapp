@@ -7,8 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { AppIcon } from '../../components/AppIcon';
 
 const TILE_ICON_COLOR = '#49c0f8';
 const TILE_ICON_SIZE = 28;
@@ -37,13 +36,13 @@ export default function LearningScreen() {
 
       <View style={styles.tilesContainer}>
         <Tile
-          icon={<MaterialCommunityIcons name="cards-outline" size={TILE_ICON_SIZE} color={TILE_ICON_COLOR} />}
+          icon={<AppIcon name="cards-outline" family="material" size={TILE_ICON_SIZE} color={TILE_ICON_COLOR} />}
           title="Образные коды"
           subtitle="Справочник и тренировка"
           onPress={goToMnemonicCodes}
         />
         <Tile
-          icon={<Ionicons name="book-outline" size={TILE_ICON_SIZE} color={TILE_ICON_COLOR} />}
+          icon={<AppIcon name="book-outline" size={TILE_ICON_SIZE} color={TILE_ICON_COLOR} />}
           title="Мнемотехника"
           subtitle="Теория и уроки"
           onPress={goToMnemonics}

@@ -8,7 +8,8 @@ import {
   Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { AppIcon } from '../../components/AppIcon';
+import BackButton from '../../components/BackButton';
 
 const TILE_ICON_COLOR = '#49c0f8';
 const TILE_ICON_SIZE = 28;
@@ -33,17 +34,18 @@ export default function MnemonicCodesScreen() {
   
   return (
     <View style={styles.container}>
+      <BackButton />
       <Text style={styles.header}>Образные коды</Text>
 
       <View style={styles.tilesContainer}>
         <Tile
-          icon={<Ionicons name="folder-open-outline" size={TILE_ICON_SIZE} color={TILE_ICON_COLOR} />}
+          icon={<AppIcon name="folder-open-outline" size={TILE_ICON_SIZE} color={TILE_ICON_COLOR} />}
           title="Справочник"
           subtitle="Поиск и все каталоги"
           onPress={goToReference}
         />
         <Tile
-          icon={<Ionicons name="barbell" size={TILE_ICON_SIZE} color={TILE_ICON_COLOR} />}
+          icon={<AppIcon name="barbell" size={TILE_ICON_SIZE} color={TILE_ICON_COLOR} />}
           title="Тренировка"
           subtitle="Запоминание карточек образных кодов"
           onPress={goToTraining}

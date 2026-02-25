@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 
 export default function TrainingResultScreen() {
   const route = useRoute();
@@ -12,6 +13,7 @@ export default function TrainingResultScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <BackButton />
       <Text style={styles.header}>Результат тренировки</Text>
       <Text style={styles.score}>Правильно: {correctCount} из {total}</Text>
       {errors.length > 0 && (

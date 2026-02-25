@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  ScrollView,
-} from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import BackButton from '../../components/BackButton';
 
 const suitConfig = {
   'Т': { symbol: '♣', color: '#ffffff' },
@@ -71,10 +65,7 @@ export default function ReferenceCard({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-        <Text style={styles.backText}>← Назад</Text>
-      </TouchableOpacity>
-
+      <BackButton />
       {card.type === 'cards' ? getCardTitle(card.num) : (
         <Text style={styles.numTitle}>{card.num}</Text>
       )}
@@ -96,21 +87,6 @@ export default function ReferenceCard({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  backButton: { 
-    position: 'absolute', 
-    top: 42, 
-    left: 20, 
-    backgroundColor: 'rgba(73, 192, 248, 0.18)',
-    paddingHorizontal: 18,
-    paddingVertical: 9,
-    borderRadius: 22,
-    zIndex: 10,
-  },
-  backText: { 
-    fontSize: 17, 
-    color: '#49c0f8', 
-    fontWeight: '600' 
-  },
   numTitle: { 
     fontSize: 48, 
     fontWeight: '900', 

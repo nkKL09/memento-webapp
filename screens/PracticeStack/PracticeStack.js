@@ -38,43 +38,40 @@ export default function PracticeStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: '#121e24' },
-        headerTintColor: '#ffffff',
-        headerTitleStyle: { fontWeight: '600', fontSize: 18 },
-        headerShadowVisible: false,
+        headerShown: false,
         headerBackVisible: false,
         headerLeft: () => null,
       }}
     >
-      <Stack.Screen name="PracticeScreen" component={PracticeScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="ToolsScreen" component={ToolsScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="EncodersScreen" component={EncodersScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="PhoneEncoderScreen" component={PhoneEncoderScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="DateEncoderScreen" component={DateEncoderScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="NumberEncoderScreen" component={NumberEncoderScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="CardMemorizationInput" component={CardMemorizationInputScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="CardMemorizationRun" component={CardMemorizationRunScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="CardMemorizationResults" component={CardMemorizationResultsScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="ReferenceCard" component={ReferenceCard} options={{ headerShown: false }} />
-      <Stack.Screen name="MemoryTester" component={MemoryTesterScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="IntroTestInstruction" component={IntroTestInstructionScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="IntroTestShow" component={IntroTestShowScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="IntroTestMath" component={IntroTestMathScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="IntroTestInput" component={IntroTestInputScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="IntroTestResult" component={IntroTestResultScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TrainingConfig" component={TrainingConfigScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TrainingShow" component={TrainingShowScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TrainingMath" component={TrainingMathScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TrainingInput" component={TrainingInputScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="TrainingResult" component={TrainingResultScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="ExamConfig" component={ExamConfigScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="ExamShow" component={ExamShowScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="ExamMath" component={ExamMathScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="ExamInput" component={ExamInputScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="ExamResult" component={ExamResultScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="ExamHistory" component={ExamHistoryScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="CustomModulesList" component={CustomModulesListScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="CustomModuleEdit" component={CustomModuleEditScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="PracticeScreen" component={PracticeScreen} />
+      <Stack.Screen name="ToolsScreen" component={ToolsScreen} />
+      <Stack.Screen name="EncodersScreen" component={EncodersScreen} />
+      <Stack.Screen name="PhoneEncoderScreen" component={PhoneEncoderScreen} />
+      <Stack.Screen name="DateEncoderScreen" component={DateEncoderScreen} />
+      <Stack.Screen name="NumberEncoderScreen" component={NumberEncoderScreen} />
+      <Stack.Screen name="CardMemorizationInput" component={CardMemorizationInputScreen} />
+      <Stack.Screen name="CardMemorizationRun" component={CardMemorizationRunScreen} />
+      <Stack.Screen name="CardMemorizationResults" component={CardMemorizationResultsScreen} />
+      <Stack.Screen name="ReferenceCard" component={ReferenceCard} />
+      <Stack.Screen name="MemoryTester" component={MemoryTesterScreen} />
+      <Stack.Screen name="IntroTestInstruction" component={IntroTestInstructionScreen} />
+      <Stack.Screen name="IntroTestShow" component={IntroTestShowScreen} />
+      <Stack.Screen name="IntroTestMath" component={IntroTestMathScreen} />
+      <Stack.Screen name="IntroTestInput" component={IntroTestInputScreen} />
+      <Stack.Screen name="IntroTestResult" component={IntroTestResultScreen} />
+      <Stack.Screen name="TrainingConfig" component={TrainingConfigScreen} />
+      <Stack.Screen name="TrainingShow" component={TrainingShowScreen} />
+      <Stack.Screen name="TrainingMath" component={TrainingMathScreen} />
+      <Stack.Screen name="TrainingInput" component={TrainingInputScreen} />
+      <Stack.Screen name="TrainingResult" component={TrainingResultScreen} />
+      <Stack.Screen name="ExamConfig" component={ExamConfigScreen} />
+      <Stack.Screen name="ExamShow" component={ExamShowScreen} />
+      <Stack.Screen name="ExamMath" component={ExamMathScreen} />
+      <Stack.Screen name="ExamInput" component={ExamInputScreen} />
+      <Stack.Screen name="ExamResult" component={ExamResultScreen} />
+      <Stack.Screen name="ExamHistory" component={ExamHistoryScreen} />
+      <Stack.Screen name="CustomModulesList" component={CustomModulesListScreen} />
+      <Stack.Screen name="CustomModuleEdit" component={CustomModuleEditScreen} />
     </Stack.Navigator>
   );
 }

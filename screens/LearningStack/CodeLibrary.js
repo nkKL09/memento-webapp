@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import * as CatalogData from '../../data/index.js';
+import BackButton from '../../components/BackButton';
 
 const suitConfig = {
   'Т': { symbol: '♣', color: '#ffffff' },
@@ -335,6 +336,7 @@ export default function CodeLibrary({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <BackButton />
       <Text style={styles.header}>Справочник</Text>
 
       <View style={styles.searchContainer}>

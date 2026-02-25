@@ -2,6 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, Alert } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import BackButton from '../../../components/BackButton';
 import { getExamHistory, clearExamHistory } from './examHistory';
 
 function formatDate(ts) {
@@ -77,6 +78,7 @@ export default function ExamHistoryScreen() {
 
   return (
     <View style={styles.container}>
+      <BackButton />
       <Text style={styles.header}>История экзаменов</Text>
       {list.length === 0 ? (
         <Text style={styles.empty}>Пока нет сохранённых результатов. Пройдите экзамен.</Text>

@@ -15,6 +15,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BackButton from '../../components/BackButton';
 import { getCardByNum } from '../LearningStack/loadCards.js';
 
 const PREFIX = '+7 ('; // скобка без 9 — цифра 9 в одной строке с маской для одинакового межбуквенного расстояния
@@ -91,6 +92,7 @@ export default function PhoneEncoderScreen() {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
+        <BackButton />
         <Text style={styles.header}>Номер телефона</Text>
 
         <TouchableWithoutFeedback onPress={() => inputRef.current?.focus()}>

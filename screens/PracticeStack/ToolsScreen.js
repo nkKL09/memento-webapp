@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BackButton from '../../components/BackButton';
 
 export default function ToolsScreen() {
   const navigation = useNavigation();
@@ -18,6 +19,7 @@ export default function ToolsScreen() {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
+      <BackButton />
       <Text style={styles.header}>Инструменты</Text>
 
       <View style={styles.tilesContainer}>

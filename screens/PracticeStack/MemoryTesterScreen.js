@@ -2,12 +2,14 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BackButton from '../../components/BackButton';
 
 export default function MemoryTesterScreen() {
   const navigation = useNavigation();
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <BackButton />
       <Text style={styles.header}>Memory Tester</Text>
 
       <TouchableOpacity
