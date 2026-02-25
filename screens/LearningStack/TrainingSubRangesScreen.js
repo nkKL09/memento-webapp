@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import { useRoute, useNavigation, useFocusEffect } from '@react-navigation/native';
 import { getProgress } from './trainingProgress.js';
@@ -92,7 +93,7 @@ export default function TrainingSubRangesScreen() {
     navigation.navigate('TrainingSessionScreen', {
       catalogId,
       shuffleMode: true,
-      sessionTitle: `${title} — наугад`,
+      sessionTitle: title,
     });
   };
 
@@ -106,11 +107,19 @@ export default function TrainingSubRangesScreen() {
   return (
     <ScrollView
       style={styles.container}
-      contentContainerStyle={styles.content}
+      contentContainerStyle={[styles.content, Platform.OS === 'web' && { paddingBottom: 100 }]}
       showsVerticalScrollIndicator={false}
     >
-      <BackButton />
-      <Text style={styles.header}>{title}</Text>
+      {Platform.OS === 'web' ? (
+        <View style={styles.headerRow}>
+          <BackButton inRow />
+          <View style={styles.headerCenterWrap} pointerEvents="box-none">
+            <Text style={styles.headerWebCentered}>{title}</Text>
+          </View>
+        </View>
+      ) : (
+        <Text style={styles.headerCentered}>{title}</Text>
+      )}
 
       <View style={styles.tilesContainer}>
         {subRanges.map((sub, index) => (
@@ -139,7 +148,7 @@ export default function TrainingSubRangesScreen() {
           onPress={handleShuffleAll}
           activeOpacity={0.8}
         >
-          <Text style={styles.title}>Весь каталог — наугад</Text>
+          <Text style={styles.title}>Весь каталог</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -157,13 +166,11 @@ export default function TrainingSubRangesScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
   content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 100 },
-  header: { 
-    fontSize: 34, 
-    fontWeight: 'bold', 
-    color: '#ffffff', 
-    marginBottom: 40, 
-    textAlign: 'center' 
-  },
+  headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', minHeight: 48, position: 'relative' },
+  headerCenterWrap: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' },
+  headerWebCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', lineHeight: 40, textAlign: 'center' },
+  header: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', marginLeft: 12, flex: 1, lineHeight: 40 },
+  headerCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 40 },
   tilesContainer: { gap: 12 },
   tile: {
     backgroundColor: '#1a2a35',

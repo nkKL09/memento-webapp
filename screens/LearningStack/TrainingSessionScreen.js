@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { loadCards } from './loadCards.js';
@@ -190,20 +191,30 @@ export default function TrainingSessionScreen() {
       ? (sessionTitle || `${subRange || ''} — обучение`)
       : subRange;
 
+  const renderHeader = () =>
+    Platform.OS === 'web' ? (
+      <View style={styles.headerRow}>
+        <BackButton inRow />
+        <View style={styles.headerCenterWrap} pointerEvents="box-none">
+          <Text style={styles.headerWebCentered}>{headerTitle}</Text>
+        </View>
+      </View>
+    ) : (
+      <Text style={styles.headerCentered}>{headerTitle}</Text>
+    );
+
   if (!shuffleMode && cards.length === 0) {
     return (
-      <View style={styles.container}>
-        <BackButton />
-        <Text style={styles.header}>{headerTitle}</Text>
+      <View style={[styles.container, Platform.OS === 'web' && { paddingBottom: 90 }]}>
+        {renderHeader()}
         <Text style={styles.emptyText}>Нет карточек для повторения</Text>
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <BackButton />
-      <Text style={styles.header}>{headerTitle}</Text>
+    <View style={[styles.container, Platform.OS === 'web' && { paddingBottom: 90 }]}>
+      {renderHeader()}
 
       <TouchableOpacity
         style={styles.card}
@@ -255,7 +266,11 @@ export default function TrainingSessionScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24', paddingTop: 18, paddingHorizontal: 20 },
-  header: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 40 },
+  headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', minHeight: 48, position: 'relative' },
+  headerCenterWrap: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' },
+  headerWebCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', lineHeight: 40, textAlign: 'center' },
+  header: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', marginLeft: 12, flex: 1, lineHeight: 40 },
+  headerCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 40 },
   card: { width: '100%', height: 460, backgroundColor: '#1a2a35', borderRadius: 32, borderWidth: 6, borderColor: '#49c0f8', overflow: 'hidden', position: 'relative' },
   cardContent: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingBottom: 70 },
 

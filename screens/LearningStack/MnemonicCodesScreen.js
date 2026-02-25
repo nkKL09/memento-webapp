@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  Platform,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AppIcon } from '../../components/AppIcon';
@@ -34,8 +35,19 @@ export default function MnemonicCodesScreen() {
   
   return (
     <View style={styles.container}>
-      <BackButton />
-      <Text style={styles.header}>Образные коды</Text>
+      {Platform.OS === 'web' ? (
+        <View style={styles.headerRow}>
+          <BackButton inRow />
+          <View style={styles.headerCenterWrap} pointerEvents="box-none">
+            <Text style={styles.headerWebCentered}>Образные коды</Text>
+          </View>
+        </View>
+      ) : (
+        <>
+          <BackButton />
+          <Text style={styles.header}>Образные коды</Text>
+        </>
+      )}
 
       <View style={styles.tilesContainer}>
         <Tile
@@ -57,6 +69,9 @@ export default function MnemonicCodesScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24', paddingTop: 18, paddingHorizontal: 20 },
+  headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 40, flexWrap: 'wrap', minHeight: 48, position: 'relative' },
+  headerCenterWrap: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' },
+  headerWebCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', lineHeight: 40, textAlign: 'center' },
   header: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', marginBottom: 40, textAlign: 'center' },
   tilesContainer: { gap: 16 },
   tile: { backgroundColor: '#1a2a35', borderRadius: 20, padding: 20, flexDirection: 'row', alignItems: 'center' },

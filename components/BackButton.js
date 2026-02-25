@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   wrap: { marginBottom: 16, alignSelf: 'flex-start' },
+  wrapInRow: { marginBottom: 0, alignSelf: 'center' },
   pill: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
   text: { fontSize: 16, color: '#ffffff', fontWeight: '600', textAlign: 'center' },
 });
 
-export default function BackButton() {
+export default function BackButton({ style, inRow }) {
   const navigation = useNavigation();
 
   if (Platform.OS !== 'web') {
@@ -26,7 +27,7 @@ export default function BackButton() {
 
   return (
     <TouchableOpacity
-      style={[styles.wrap, styles.pill]}
+      style={[inRow ? styles.wrapInRow : styles.wrap, styles.pill, style]}
       onPress={() => navigation.goBack()}
       activeOpacity={0.85}
     >

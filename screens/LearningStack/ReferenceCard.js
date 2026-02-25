@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Platform } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../components/BackButton';
 import OptimizedImage from '../../components/OptimizedImage';
 
@@ -61,46 +62,55 @@ const getBckDisplay = (num, code, catalogId) => {
   return bckParts.filter(Boolean).join(' ');
 };
 
-export default function ReferenceCard({ route, navigation }) {
+export default function ReferenceCard({ route }) {
+  const navigation = useNavigation();
   const { card } = route.params;
 
-  return (
-    <View style={styles.container}>
-      <BackButton />
-      {card.type === 'cards' ? getCardTitle(card.num) : (
-        <Text style={styles.numTitle}>{card.num}</Text>
-      )}
+  const titleContent = card.type === 'cards' ? getCardTitle(card.num) : (
+    <Text style={styles.numTitle}>{card.num}</Text>
+  );
 
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        {card.image && (
-          <OptimizedImage source={card.image} style={styles.bigImage} resizeMode="contain" />
+  return (
+    <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
+      <View style={[styles.container, Platform.OS === 'web' && { paddingBottom: 90 }]}>
+        {Platform.OS === 'web' ? (
+          <View style={styles.headerRow}>
+            <View style={styles.backWrap}>
+              <BackButton inRow />
+            </View>
+            <View style={styles.headerCenterWrap} pointerEvents="box-none">
+              <View style={styles.titleCenterInner}>{titleContent}</View>
+            </View>
+          </View>
+        ) : (
+          <View style={styles.headerCenteredWrap}>{titleContent}</View>
         )}
 
-        <Text style={styles.codeText}>{card.code}</Text>
+        <View style={styles.scrollContent}>
+          {card.image && (
+            <OptimizedImage source={card.image} style={styles.bigImage} resizeMode="contain" />
+          )}
 
-        <Text style={styles.bckText}>
-          {getBckDisplay(card.num, card.code, card.catalogId)}
-        </Text>
-      </ScrollView>
-    </View>
+          <Text style={styles.codeText}>{card.code}</Text>
+
+          <Text style={styles.bckText}>
+            {getBckDisplay(card.num, card.code, card.catalogId)}
+          </Text>
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  numTitle: { 
-    fontSize: 48, 
-    fontWeight: '900', 
-    color: '#ffffff', 
-    textAlign: 'center', 
-    marginTop: 95,
-    letterSpacing: -2 
-  },
-  scrollContent: { 
-    alignItems: 'center', 
-    paddingHorizontal: 20, 
-    paddingBottom: 100 
-  },
+  headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 16, paddingTop: 24, paddingHorizontal: 20, paddingLeft: 24, minHeight: 48, position: 'relative' },
+  backWrap: { flexShrink: 0, marginRight: 16, alignSelf: 'center' },
+  headerCenterWrap: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' },
+  titleCenterInner: { alignItems: 'center', justifyContent: 'center' },
+  headerCenteredWrap: { paddingTop: 24, marginBottom: 16, alignItems: 'center', justifyContent: 'center' },
+  numTitle: { fontSize: 48, fontWeight: '900', color: '#ffffff', letterSpacing: -2, textAlign: 'center' },
+  scrollContent: { alignItems: 'center', paddingHorizontal: 20, paddingBottom: 100 },
   bigImage: { 
     width: 300, 
     height: 300, 

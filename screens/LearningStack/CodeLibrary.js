@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Platform,
 } from 'react-native';
 import * as CatalogData from '../../data/index.js';
 import BackButton from '../../components/BackButton';
@@ -335,9 +336,17 @@ export default function CodeLibrary({ navigation }) {
   );
 
   return (
-    <View style={styles.container}>
-      <BackButton />
-      <Text style={styles.header}>Справочник</Text>
+    <View style={[styles.container, Platform.OS === 'web' && { paddingBottom: 90 }]}>
+      {Platform.OS === 'web' ? (
+        <View style={styles.headerRow}>
+          <BackButton inRow />
+          <View style={styles.headerCenterWrap} pointerEvents="box-none">
+            <Text style={styles.headerWebCentered}>Справочник</Text>
+          </View>
+        </View>
+      ) : (
+        <Text style={styles.headerCentered}>Справочник</Text>
+      )}
 
       <View style={styles.searchContainer}>
         <TextInput
@@ -355,7 +364,7 @@ export default function CodeLibrary({ navigation }) {
         data={filteredCards}
         keyExtractor={(item) => `${item.catalogId}-${item.num}`}
         ListHeaderComponent={renderChipsHeader}
-        contentContainerStyle={styles.list}
+        contentContainerStyle={[styles.list, Platform.OS === 'web' && { paddingBottom: 24 }]}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.item} onPress={() => openCard(item)}>
             <View style={styles.left}>
@@ -383,13 +392,11 @@ const styles = StyleSheet.create({
     paddingTop: 18, 
     paddingHorizontal: 20 
   },
-  header: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 24,
-    textAlign: 'center',
-  },
+  headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', minHeight: 48, position: 'relative' },
+  headerCenterWrap: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' },
+  headerWebCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', lineHeight: 40, textAlign: 'center' },
+  header: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', marginLeft: 12, flex: 1, lineHeight: 40 },
+  headerCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 24 },
   searchContainer: { paddingBottom: 16 },
   searchInput: {
     backgroundColor: '#1a2a35',
