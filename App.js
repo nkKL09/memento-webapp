@@ -5,7 +5,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import { useFonts } from 'expo-font';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 import HomeScreen from './screens/HomeScreen';
 import PracticeStack from './screens/PracticeStack/PracticeStack';
@@ -62,11 +64,24 @@ const SPLASH_DURATION = 2000;
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
+  const [fontsLoaded] = useFonts({
+    ...Ionicons.font,
+    ...MaterialCommunityIcons.font,
+  });
 
   useEffect(() => {
     const t = setTimeout(() => setShowSplash(false), SPLASH_DURATION);
     return () => clearTimeout(t);
   }, []);
+
+  if (!fontsLoaded) {
+    const splashBg = '#0f1a26';
+    return (
+      <View style={{ flex: 1, backgroundColor: splashBg, justifyContent: 'center', alignItems: 'center' }}>
+        <StatusBar style="light" backgroundColor={splashBg} />
+      </View>
+    );
+  }
 
   if (showSplash) {
     const splashBg = '#0f1a26';
