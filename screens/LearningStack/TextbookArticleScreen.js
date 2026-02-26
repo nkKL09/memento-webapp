@@ -1,9 +1,10 @@
 // screens/LearningStack/TextbookArticleScreen.js — просмотр одной статьи учебника
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, TouchableWithoutFeedback, Modal, StyleSheet, ScrollView, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, TouchableWithoutFeedback, Modal, StyleSheet, ScrollView, Linking, Platform } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { setArticleRead, removeArticleRead, getReadArticleIds, isArticleRead } from './textbookRead.js';
-import BackButton from '../../components/BackButton';
+import { isTelegramWebApp } from '../../telegramWebApp';
+import ScreenHeader from '../../components/ScreenHeader';
 import OptimizedImage from '../../components/OptimizedImage';
 
 const BODY_COLOR = '#e2e8f0';
@@ -150,18 +151,22 @@ export default function TextbookArticleScreen() {
   if (!article) {
     return (
       <View style={styles.container}>
-        <BackButton />
-        <Text style={styles.header}>Статья не найдена</Text>
+        <ScreenHeader title="Статья не найдена" showBackButton />
       </View>
     );
   }
 
   const segments = parseContentWithTables(article.content);
 
+  const isTwa = Platform.OS === 'web' && isTelegramWebApp();
+  const scrollContentStyle = [
+    styles.scrollContent,
+    isTwa && { paddingBottom: 100 },
+  ];
+
   return (
     <View style={styles.container}>
-      <BackButton />
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator>
+      <ScrollView style={styles.scroll} contentContainerStyle={scrollContentStyle} showsVerticalScrollIndicator>
         <Text style={styles.title}>{article.id} {article.title}</Text>
         {segments.map((seg, idx) =>
           seg.type === 'text' ? (
@@ -206,8 +211,7 @@ export default function TextbookArticleScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#121e24', paddingTop: 18, paddingHorizontal: 20 },
-  header: { fontSize: 22, color: '#ffffff', textAlign: 'center' },
+  container: { flex: 1, backgroundColor: '#121e24', paddingHorizontal: 20 },
   scroll: { flex: 1 },
   scrollContent: { paddingBottom: 60 },
   title: { fontSize: 22, fontWeight: '700', color: '#ffffff', marginBottom: 20 },

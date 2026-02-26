@@ -1,12 +1,15 @@
 // Свои (пользовательские) модули Memory Tester
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getStorageKeyPrefix } from '../../../telegramWebApp';
 
-const KEY = 'memory_tester_custom_modules';
+function getKey() {
+  return getStorageKeyPrefix() + 'memory_tester_custom_modules';
+}
 
 /** @returns {Promise<Array<{ id: string, name: string, elements: string[] }>>} */
 export async function getCustomModules() {
   try {
-    const raw = await AsyncStorage.getItem(KEY);
+    const raw = await AsyncStorage.getItem(getKey());
     if (!raw) return [];
     const arr = JSON.parse(raw);
     return Array.isArray(arr) ? arr : [];
@@ -21,7 +24,7 @@ export async function addCustomModule({ name, elements }) {
     const list = await getCustomModules();
     const id = `custom_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
     const item = { id, name: (name || '').trim(), elements: Array.isArray(elements) ? elements.filter(Boolean).map((s) => String(s).trim()) : [] };
-    await AsyncStorage.setItem(KEY, JSON.stringify([...list, item]));
+    await AsyncStorage.setItem(getKey(), JSON.stringify([...list, item]));
     return item;
   } catch (e) {
     console.warn('customModules addCustomModule', e);
@@ -40,7 +43,7 @@ export async function updateCustomModule(id, { name, elements }) {
         elements: elements != null ? (Array.isArray(elements) ? elements.filter(Boolean).map((s) => String(s).trim()) : []) : m.elements,
       };
     });
-    await AsyncStorage.setItem(KEY, JSON.stringify(next));
+    await AsyncStorage.setItem(getKey(), JSON.stringify(next));
     return next.find((m) => m.id === id);
   } catch (e) {
     console.warn('customModules updateCustomModule', e);
@@ -52,7 +55,7 @@ export async function removeCustomModule(id) {
   try {
     const list = await getCustomModules();
     const next = list.filter((m) => m.id !== id);
-    await AsyncStorage.setItem(KEY, JSON.stringify(next));
+    await AsyncStorage.setItem(getKey(), JSON.stringify(next));
   } catch (e) {
     console.warn('customModules removeCustomModule', e);
   }

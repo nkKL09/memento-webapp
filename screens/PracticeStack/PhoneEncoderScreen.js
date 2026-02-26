@@ -14,7 +14,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import BackButton from '../../components/BackButton';
+import ScreenHeader from '../../components/ScreenHeader';
 import OptimizedImage from '../../components/OptimizedImage';
 import { getCardByNum } from '../LearningStack/loadCards.js';
 
@@ -92,9 +92,7 @@ export default function PhoneEncoderScreen() {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
-        <BackButton />
-        <Text style={styles.header}>Номер телефона</Text>
-
+        <ScreenHeader title="Номер телефона" showBackButton />
         <TouchableWithoutFeedback onPress={() => inputRef.current?.focus()}>
           <View style={[styles.inputWrap, focused && styles.inputWrapFocused]}>
             <Text style={styles.prefix}>{PREFIX}</Text>
@@ -159,14 +157,7 @@ export default function PhoneEncoderScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
   scroll: { flex: 1 },
-  content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 100 },
-  header: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 40,
-    textAlign: 'center',
-  },
+  content: { paddingHorizontal: 20, paddingBottom: 100 },
   inputWrap: {
     flexDirection: 'row',
     alignItems: 'center',

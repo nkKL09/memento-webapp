@@ -13,7 +13,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import BackButton from '../../components/BackButton';
+import ScreenHeader from '../../components/ScreenHeader';
 import OptimizedImage from '../../components/OptimizedImage';
 import { getCardByNum } from '../LearningStack/loadCards.js';
 
@@ -107,9 +107,7 @@ export default function NumberEncoderScreen() {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
-        <BackButton />
-        <Text style={styles.header}>Произвольное число</Text>
-
+        <ScreenHeader title="Произвольное число" showBackButton />
         <View style={styles.fieldRow}>
           <TextInput
             ref={inputRef}
@@ -166,14 +164,7 @@ export default function NumberEncoderScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
   scroll: { flex: 1 },
-  content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 100 },
-  header: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 40,
-    textAlign: 'center',
-  },
+  content: { paddingHorizontal: 20, paddingBottom: 100 },
   fieldRow: { marginBottom: 8 },
   input: {
     backgroundColor: '#1a2a35',

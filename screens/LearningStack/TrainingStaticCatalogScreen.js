@@ -11,7 +11,8 @@ import {
 import { useRoute, useNavigation, useFocusEffect } from '@react-navigation/native';
 import { getProgress } from './trainingProgress.js';
 import StarsView from './StarsView.js';
-import BackButton from '../../components/BackButton';
+import ScreenHeader from '../../components/ScreenHeader';
+import { hapticImpact } from '../../telegramWebApp';
 
 export default function TrainingStaticCatalogScreen() {
   const route = useRoute();
@@ -31,6 +32,7 @@ export default function TrainingStaticCatalogScreen() {
   );
 
   const handleTraining = () => {
+    hapticImpact('light');
     navigation.navigate('TrainingSessionScreen', {
       catalogId,
       subRange: title,
@@ -38,6 +40,7 @@ export default function TrainingStaticCatalogScreen() {
   };
 
   const handleShuffleAll = () => {
+    hapticImpact('light');
     navigation.navigate('TrainingSessionScreen', {
       catalogId,
       shuffleMode: true,
@@ -46,6 +49,7 @@ export default function TrainingStaticCatalogScreen() {
   };
 
   const handleKnowledgeCheck = () => {
+    hapticImpact('light');
     navigation.navigate('KnowledgeCheckScreen', {
       catalogId,
       title,
@@ -58,17 +62,7 @@ export default function TrainingStaticCatalogScreen() {
       contentContainerStyle={[styles.content, Platform.OS === 'web' && { paddingBottom: 100 }]}
       showsVerticalScrollIndicator={false}
     >
-      {Platform.OS === 'web' ? (
-        <View style={styles.headerRow}>
-          <BackButton inRow />
-          <View style={styles.headerCenterWrap} pointerEvents="box-none">
-            <Text style={styles.headerWebCentered}>{title}</Text>
-          </View>
-        </View>
-      ) : (
-        <Text style={styles.headerCentered}>{title}</Text>
-      )}
-
+      <ScreenHeader title={title} showBackButton />
       <View style={styles.tilesContainer}>
         <TouchableOpacity
           style={styles.tile}
@@ -101,12 +95,7 @@ export default function TrainingStaticCatalogScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 100 },
-  headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', minHeight: 48, position: 'relative' },
-  headerCenterWrap: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' },
-  headerWebCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', lineHeight: 40, textAlign: 'center' },
-  header: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', marginLeft: 12, flex: 1, lineHeight: 40 },
-  headerCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 40 },
+  content: { paddingHorizontal: 20, paddingBottom: 100 },
   tilesContainer: { gap: 12 },
   tile: {
     backgroundColor: '#1a2a35',

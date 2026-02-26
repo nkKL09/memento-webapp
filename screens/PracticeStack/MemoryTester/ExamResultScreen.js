@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import BackButton from '../../../components/BackButton';
+import ScreenHeader from '../../../components/ScreenHeader';
 import { addExamResult, removeExamResult } from './examHistory';
 
 function formatCoefficient(k) {
@@ -60,8 +60,7 @@ export default function ExamResultScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-      <BackButton />
-      <Text style={styles.header}>Результат экзамена</Text>
+      <ScreenHeader title="Результат экзамена" showBackButton />
       <Text style={styles.score}>Правильно: {correctCount} из {total}</Text>
       <View style={styles.coefBlock}>
         <Text style={styles.coefLabel}>Коэффициент запоминания</Text>
@@ -104,7 +103,6 @@ export default function ExamResultScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
   content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 60 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 24 },
   score: { fontSize: 28, fontWeight: '700', color: '#49c0f8', textAlign: 'center', marginBottom: 16 },
   coefBlock: { alignItems: 'center', marginBottom: 24, paddingVertical: 16, paddingHorizontal: 20, backgroundColor: '#1a2a35', borderRadius: 12 },
   coefLabel: { fontSize: 14, color: '#94a3b8', marginBottom: 4 },

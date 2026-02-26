@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import BackButton from '../../../components/BackButton';
+import ScreenHeader from '../../../components/ScreenHeader';
 import { MODULES, generateTrainingSequence } from './trainingUtils';
 
 const EXAM_MODULES = MODULES.filter((m) => m.id === 'twoDigit' || m.id === 'threeDigit');
@@ -40,8 +40,7 @@ export default function ExamConfigScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-      <BackButton />
-      <Text style={styles.header}>Экзамен</Text>
+      <ScreenHeader title="Экзамен" showBackButton />
       <Text style={styles.subtitle}>Коэффициент способности запоминания</Text>
 
       <Text style={styles.label}>Модуль</Text>
@@ -83,8 +82,7 @@ export default function ExamConfigScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 60 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 4 },
+  content: { paddingHorizontal: 20, paddingBottom: 60 },
   subtitle: { fontSize: 14, color: '#94a3b8', textAlign: 'center', marginBottom: 20 },
   label: { fontSize: 16, color: '#94a3b8', marginBottom: 8, marginTop: 16 },
   options: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },

@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { loadCards } from './loadCards.js';
-import BackButton from '../../components/BackButton';
+import ScreenHeader from '../../components/ScreenHeader';
 
 function shuffleArray(arr) {
   const a = [...arr];
@@ -165,7 +165,7 @@ export default function KnowledgeCheckScreen() {
   if (loading || !catalogId) {
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>Загрузка...</Text>
+        <ScreenHeader title="Загрузка..." showBackButton />
       </View>
     );
   }
@@ -173,8 +173,7 @@ export default function KnowledgeCheckScreen() {
   if (cards.length === 0) {
     return (
       <View style={styles.container}>
-        <BackButton />
-        <Text style={styles.header}>В каталоге нет карточек</Text>
+        <ScreenHeader title="В каталоге нет карточек" showBackButton />
       </View>
     );
   }
@@ -190,8 +189,7 @@ export default function KnowledgeCheckScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
     >
-      <BackButton />
-      <Text style={styles.header}>{title} — Проверка знаний</Text>
+      <ScreenHeader title={`${title} — Проверка знаний`} showBackButton />
       <Text style={styles.progressLabel}>
         Вопрос {index + 1} из {total}
       </Text>

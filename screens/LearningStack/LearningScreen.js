@@ -1,19 +1,23 @@
 // screens/LearningStack/LearningScreen.js
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AppIcon } from '../../components/AppIcon';
+import ScreenHeader from '../../components/ScreenHeader';
+import { hapticImpact } from '../../telegramWebApp';
 
 const TILE_ICON_COLOR = '#49c0f8';
 const TILE_ICON_SIZE = 28;
 
 const Tile = ({ icon, title, subtitle, onPress }) => (
-  <TouchableOpacity style={styles.tile} onPress={onPress}>
+  <TouchableOpacity
+    style={styles.tile}
+    onPress={() => {
+      hapticImpact('light');
+      onPress?.();
+    }}
+    activeOpacity={0.8}
+  >
     <View style={styles.iconContainer}>
       {typeof icon === 'string' ? <Text style={styles.icon}>{icon}</Text> : icon}
     </View>
@@ -32,8 +36,7 @@ export default function LearningScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Обучение</Text>
-
+      <ScreenHeader title="Обучение" />
       <View style={styles.tilesContainer}>
         <Tile
           icon={<AppIcon name="cards-outline" family="material" size={TILE_ICON_SIZE} color={TILE_ICON_COLOR} />}
@@ -53,8 +56,7 @@ export default function LearningScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#121e24', paddingTop: 18, paddingHorizontal: 20 },
-  header: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', marginBottom: 40, textAlign: 'center' },
+  container: { flex: 1, backgroundColor: '#121e24', paddingHorizontal: 20 },
   tilesContainer: { gap: 16 },
   tile: { backgroundColor: '#1a2a35', borderRadius: 20, padding: 20, flexDirection: 'row', alignItems: 'center' },
   iconContainer: { width: 48, height: 48, backgroundColor: '#121e24', borderRadius: 12, justifyContent: 'center', alignItems: 'center', marginRight: 20 },

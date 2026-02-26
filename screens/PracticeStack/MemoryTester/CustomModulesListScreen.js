@@ -2,7 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import BackButton from '../../../components/BackButton';
+import ScreenHeader from '../../../components/ScreenHeader';
 import { getCustomModules } from './customModules';
 
 export default function CustomModulesListScreen() {
@@ -36,8 +36,7 @@ export default function CustomModulesListScreen() {
 
   return (
     <View style={styles.container}>
-      <BackButton />
-      <Text style={styles.header}>Свои модули</Text>
+      <ScreenHeader title="Свои модули" showBackButton />
       <Text style={styles.subtitle}>Создайте набор элементов (слов, фраз) и тренируйте память по ним в разделе «Тренировка».</Text>
       {list.length === 0 ? (
         <Text style={styles.empty}>Пока нет своих модулей. Создайте первый.</Text>
@@ -59,7 +58,6 @@ export default function CustomModulesListScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginTop: 18, marginBottom: 8 },
   subtitle: { fontSize: 14, color: '#94a3b8', textAlign: 'center', marginBottom: 20, paddingHorizontal: 16 },
   empty: { fontSize: 16, color: '#64748b', textAlign: 'center', marginTop: 24 },
   list: { paddingBottom: 100 },

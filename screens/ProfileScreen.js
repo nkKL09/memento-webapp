@@ -1,10 +1,19 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import ScreenHeader from '../components/ScreenHeader';
 
 export default function ProfileScreen() {
   return (
-    <View style={{ flex: 1, backgroundColor: '#121e24', justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ color: '#fff', fontSize: 28, fontWeight: 'bold' }}>Профиль</Text>
+    <View style={styles.container}>
+      <ScreenHeader title="Профиль" />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#121e24',
+    paddingHorizontal: 20,
+  },
+});

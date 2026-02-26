@@ -1,11 +1,10 @@
 // screens/LearningStack/trainingProgress.js — сохранение прогресса обучения (знаю / звёзды)
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const PREFIX = 'training_';
+import { getStorageKeyPrefix } from '../../telegramWebApp';
 
 function storageKey(catalogId, subRangeKey) {
   const sub = subRangeKey == null || subRangeKey === '' ? 'full' : subRangeKey;
-  return PREFIX + catalogId + '_' + sub;
+  return getStorageKeyPrefix() + 'training_' + catalogId + '_' + sub;
 }
 
 export async function getProgress(catalogId, subRangeKey) {

@@ -3,6 +3,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AppIcon } from '../../components/AppIcon';
+import ScreenHeader from '../../components/ScreenHeader';
+import { hapticImpact } from '../../telegramWebApp';
 
 const ROW_ICON_SIZE = 24;
 const ROW_ICON_COLOR = '#49c0f8';
@@ -12,11 +14,13 @@ export default function PracticeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Практика</Text>
-
+      <ScreenHeader title="Практика" />
       <TouchableOpacity
         style={styles.tile}
-        onPress={() => navigation.navigate('CardMemorizationInput')}
+        onPress={() => {
+          hapticImpact('light');
+          navigation.navigate('CardMemorizationInput');
+        }}
         activeOpacity={0.8}
       >
         <View style={styles.titleRow}>
@@ -27,7 +31,10 @@ export default function PracticeScreen() {
 
       <TouchableOpacity
         style={styles.tile}
-        onPress={() => navigation.navigate('MemoryTester')}
+        onPress={() => {
+          hapticImpact('light');
+          navigation.navigate('MemoryTester');
+        }}
         activeOpacity={0.8}
       >
         <Text style={styles.title}>Memory Tester</Text>
@@ -35,7 +42,10 @@ export default function PracticeScreen() {
 
       <TouchableOpacity
         style={styles.tile}
-        onPress={() => navigation.navigate('ToolsScreen')}
+        onPress={() => {
+          hapticImpact('light');
+          navigation.navigate('ToolsScreen');
+        }}
         activeOpacity={0.8}
       >
         <View style={styles.titleRow}>
@@ -49,14 +59,7 @@ export default function PracticeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#121e24', paddingTop: 18, paddingHorizontal: 20 },
-  header: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 40,
-    textAlign: 'center',
-  },
+  container: { flex: 1, backgroundColor: '#121e24', paddingHorizontal: 20 },
   tile: {
     backgroundColor: '#1a2a35',
     borderRadius: 20,

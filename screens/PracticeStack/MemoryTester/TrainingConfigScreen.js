@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import BackButton from '../../../components/BackButton';
+import ScreenHeader from '../../../components/ScreenHeader';
 import { MODULES, generateTrainingSequence, isNumberModule, isCatalogModule } from './trainingUtils';
 import { getCustomModules } from './customModules';
 
@@ -79,8 +79,7 @@ export default function TrainingConfigScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-      <BackButton />
-      <Text style={styles.header}>Тренировка</Text>
+      <ScreenHeader title="Тренировка" showBackButton />
 
       <Text style={styles.label}>Модуль</Text>
       <View style={styles.options}>
@@ -178,7 +177,6 @@ export default function TrainingConfigScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
   content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 60 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 20 },
   label: { fontSize: 16, color: '#94a3b8', marginBottom: 8, marginTop: 16 },
   options: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   option: { paddingVertical: 10, paddingHorizontal: 14, borderRadius: 10, backgroundColor: '#334155' },

@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import BackButton from '../../../components/BackButton';
+import ScreenHeader from '../../../components/ScreenHeader';
 
 export default function TrainingResultScreen() {
   const route = useRoute();
@@ -13,8 +13,7 @@ export default function TrainingResultScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-      <BackButton />
-      <Text style={styles.header}>Результат тренировки</Text>
+      <ScreenHeader title="Результат тренировки" showBackButton />
       <Text style={styles.score}>Правильно: {correctCount} из {total}</Text>
       {errors.length > 0 && (
         <View style={styles.errorsBlock}>
@@ -44,7 +43,6 @@ export default function TrainingResultScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
   content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 60 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 24 },
   score: { fontSize: 28, fontWeight: '700', color: '#49c0f8', textAlign: 'center', marginBottom: 24 },
   errorsBlock: { marginBottom: 24 },
   errorsTitle: { fontSize: 16, fontWeight: '600', color: '#94a3b8', marginBottom: 12 },

@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import StarsView from './StarsView.js';
-import BackButton from '../../components/BackButton';
+import ScreenHeader from '../../components/ScreenHeader';
+import { hapticImpact } from '../../telegramWebApp';
 
 const catalogs = [
   { id: '00-99', title: '00-99', type: 'numbers' },
@@ -40,20 +41,11 @@ export default function TrainingCatalogsScreen() {
       contentContainerStyle={[styles.content, Platform.OS === 'web' && { paddingBottom: 100 }]}
       showsVerticalScrollIndicator={false}
     >
-      {Platform.OS === 'web' ? (
-        <View style={styles.headerRow}>
-          <BackButton inRow />
-          <View style={styles.headerCenterWrap} pointerEvents="box-none">
-            <Text style={styles.headerWebCentered}>Тренировка</Text>
-          </View>
-        </View>
-      ) : (
-        <Text style={styles.headerCentered}>Тренировка</Text>
-      )}
-
+      <ScreenHeader title="Тренировка" showBackButton />
       <View style={styles.tilesContainer}>
         {catalogs.map((cat) => {
           const handlePress = () => {
+            hapticImpact('light');
             if (cat.type === 'numbers' || cat.type === 'cards') {
               navigation.navigate('TrainingSubRangesScreen', {
                 catalogId: cat.id,
@@ -87,12 +79,7 @@ export default function TrainingCatalogsScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 100 },
-  headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', minHeight: 48, position: 'relative' },
-  headerCenterWrap: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' },
-  headerWebCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', lineHeight: 40, textAlign: 'center' },
-  header: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', marginLeft: 12, flex: 1, lineHeight: 40 },
-  headerCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 40 },
+  content: { paddingHorizontal: 20, paddingBottom: 100 },
   tilesContainer: { gap: 12 },
   tile: {
     backgroundColor: '#1a2a35',

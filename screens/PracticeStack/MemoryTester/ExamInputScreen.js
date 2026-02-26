@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Keyboard, InteractionManager } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import BackButton from '../../../components/BackButton';
+import ScreenHeader from '../../../components/ScreenHeader';
 import { isNumberModule } from './trainingUtils';
 import { MONTHS, DAYS } from './trainingUtils';
 
@@ -150,8 +150,7 @@ export default function ExamInputScreen() {
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView ref={scrollRef} style={styles.scroll} contentContainerStyle={[styles.scrollContent, keyboardVisible && { paddingBottom: 280 }]} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
-        <BackButton />
-        <Text style={styles.header}>Введите запомненные {isNum ? 'числа' : 'значения'}</Text>
+        <ScreenHeader title={`Введите запомненные ${isNum ? 'числа' : 'значения'}`} showBackButton />
         <View style={styles.grid}>
           {Array.from({ length: n }, (_, i) => (
             <View key={i}>
@@ -218,7 +217,6 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
   scroll: { flex: 1 },
   scrollContent: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 40 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 16 },
   grid: { marginBottom: 24 },
   row: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
   rowPickerOpen: { marginBottom: 4 },

@@ -2,19 +2,23 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import BackButton from '../../components/BackButton';
+import ScreenHeader from '../../components/ScreenHeader';
+import { hapticImpact } from '../../telegramWebApp';
 
 export default function MemoryTesterScreen() {
   const navigation = useNavigation();
 
+  const onTilePress = (screen) => {
+    hapticImpact('light');
+    navigation.navigate(screen);
+  };
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-      <BackButton />
-      <Text style={styles.header}>Memory Tester</Text>
-
+      <ScreenHeader title="Memory Tester" showBackButton />
       <TouchableOpacity
         style={styles.tile}
-        onPress={() => navigation.navigate('IntroTestInstruction')}
+        onPress={() => onTilePress('IntroTestInstruction')}
         activeOpacity={0.8}
       >
         <Text style={styles.tileTitle}>Вводное тестирование</Text>
@@ -23,7 +27,7 @@ export default function MemoryTesterScreen() {
 
       <TouchableOpacity
         style={styles.tile}
-        onPress={() => navigation.navigate('TrainingConfig')}
+        onPress={() => onTilePress('TrainingConfig')}
         activeOpacity={0.8}
       >
         <Text style={styles.tileTitle}>Тренировка</Text>
@@ -32,7 +36,7 @@ export default function MemoryTesterScreen() {
 
       <TouchableOpacity
         style={styles.tile}
-        onPress={() => navigation.navigate('ExamConfig')}
+        onPress={() => onTilePress('ExamConfig')}
         activeOpacity={0.8}
       >
         <Text style={styles.tileTitle}>Экзамен</Text>
@@ -41,7 +45,7 @@ export default function MemoryTesterScreen() {
 
       <TouchableOpacity
         style={styles.tile}
-        onPress={() => navigation.navigate('ExamHistory')}
+        onPress={() => onTilePress('ExamHistory')}
         activeOpacity={0.8}
       >
         <Text style={styles.tileTitle}>История</Text>
@@ -53,8 +57,7 @@ export default function MemoryTesterScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 60 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 28 },
+  content: { paddingHorizontal: 20, paddingBottom: 60 },
   tile: {
     backgroundColor: '#1a2a35',
     borderRadius: 20,

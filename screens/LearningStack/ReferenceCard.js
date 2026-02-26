@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableWithoutFeedback, Platform } from 'reac
 import { useNavigation } from '@react-navigation/native';
 import BackButton from '../../components/BackButton';
 import OptimizedImage from '../../components/OptimizedImage';
+import { isTelegramWebApp } from '../../telegramWebApp';
 
 const suitConfig = {
   'Т': { symbol: '♣', color: '#ffffff' },
@@ -69,12 +70,14 @@ export default function ReferenceCard({ route }) {
   const titleContent = card.type === 'cards' ? getCardTitle(card.num) : (
     <Text style={styles.numTitle}>{card.num}</Text>
   );
+  const isTwa = Platform.OS === 'web' && isTelegramWebApp();
+  const headerTop = isTwa ? { paddingTop: 12 } : null;
 
   return (
     <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
       <View style={[styles.container, Platform.OS === 'web' && { paddingBottom: 90 }]}>
         {Platform.OS === 'web' ? (
-          <View style={styles.headerRow}>
+          <View style={[styles.headerRow, headerTop]}>
             <View style={styles.backWrap}>
               <BackButton inRow />
             </View>
@@ -83,19 +86,21 @@ export default function ReferenceCard({ route }) {
             </View>
           </View>
         ) : (
-          <View style={styles.headerCenteredWrap}>{titleContent}</View>
+          <View style={[styles.headerCenteredWrap, headerTop]}>{titleContent}</View>
         )}
 
-        <View style={styles.scrollContent}>
-          {card.image && (
-            <OptimizedImage source={card.image} style={styles.bigImage} resizeMode="contain" />
-          )}
+        <View style={styles.scrollContentWrapper}>
+          <View style={styles.scrollContent}>
+            {card.image && (
+              <OptimizedImage source={card.image} style={styles.bigImage} resizeMode="contain" />
+            )}
 
-          <Text style={styles.codeText}>{card.code}</Text>
+            <Text style={styles.codeText}>{card.code}</Text>
 
-          <Text style={styles.bckText}>
-            {getBckDisplay(card.num, card.code, card.catalogId)}
-          </Text>
+            <Text style={styles.bckText}>
+              {getBckDisplay(card.num, card.code, card.catalogId)}
+            </Text>
+          </View>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -104,12 +109,13 @@ export default function ReferenceCard({ route }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 16, paddingTop: 24, paddingHorizontal: 20, paddingLeft: 24, minHeight: 48, position: 'relative' },
+  headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 16, paddingTop: 18, paddingHorizontal: 20, paddingLeft: 24, minHeight: 48, position: 'relative' },
   backWrap: { flexShrink: 0, marginRight: 16, alignSelf: 'center' },
   headerCenterWrap: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' },
   titleCenterInner: { alignItems: 'center', justifyContent: 'center' },
-  headerCenteredWrap: { paddingTop: 24, marginBottom: 16, alignItems: 'center', justifyContent: 'center' },
+  headerCenteredWrap: { paddingTop: 18, marginBottom: 16, alignItems: 'center', justifyContent: 'center' },
   numTitle: { fontSize: 48, fontWeight: '900', color: '#ffffff', letterSpacing: -2, textAlign: 'center' },
+  scrollContentWrapper: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   scrollContent: { alignItems: 'center', paddingHorizontal: 20, paddingBottom: 100 },
   bigImage: { 
     width: 300, 

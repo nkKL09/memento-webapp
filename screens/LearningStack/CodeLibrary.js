@@ -10,8 +10,9 @@ import {
   Platform,
 } from 'react-native';
 import * as CatalogData from '../../data/index.js';
-import BackButton from '../../components/BackButton';
+import ScreenHeader from '../../components/ScreenHeader';
 import OptimizedImage from '../../components/OptimizedImage';
+import { hapticImpact } from '../../telegramWebApp';
 
 const suitConfig = {
   'Т': { symbol: '♣', color: '#ffffff' },
@@ -336,18 +337,8 @@ export default function CodeLibrary({ navigation }) {
   );
 
   return (
-    <View style={[styles.container, Platform.OS === 'web' && { paddingBottom: 90 }]}>
-      {Platform.OS === 'web' ? (
-        <View style={styles.headerRow}>
-          <BackButton inRow />
-          <View style={styles.headerCenterWrap} pointerEvents="box-none">
-            <Text style={styles.headerWebCentered}>Справочник</Text>
-          </View>
-        </View>
-      ) : (
-        <Text style={styles.headerCentered}>Справочник</Text>
-      )}
-
+    <View style={styles.container}>
+      <ScreenHeader title="Справочник" showBackButton />
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -364,9 +355,15 @@ export default function CodeLibrary({ navigation }) {
         data={filteredCards}
         keyExtractor={(item) => `${item.catalogId}-${item.num}`}
         ListHeaderComponent={renderChipsHeader}
-        contentContainerStyle={[styles.list, Platform.OS === 'web' && { paddingBottom: 24 }]}
+        contentContainerStyle={styles.list}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.item} onPress={() => openCard(item)}>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => {
+              hapticImpact('light');
+              openCard(item);
+            }}
+          >
             <View style={styles.left}>
               <Text style={styles.num}>
                 {item.type === 'cards' ? getCardTitle(item.num) : item.num}
@@ -386,17 +383,7 @@ export default function CodeLibrary({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    backgroundColor: '#121e24', 
-    paddingTop: 18, 
-    paddingHorizontal: 20 
-  },
-  headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', minHeight: 48, position: 'relative' },
-  headerCenterWrap: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' },
-  headerWebCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', lineHeight: 40, textAlign: 'center' },
-  header: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', marginLeft: 12, flex: 1, lineHeight: 40 },
-  headerCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 24 },
+  container: { flex: 1, backgroundColor: '#121e24', paddingHorizontal: 20 },
   searchContainer: { paddingBottom: 16 },
   searchInput: {
     backgroundColor: '#1a2a35',
@@ -434,7 +421,7 @@ const styles = StyleSheet.create({
   },
   list: { 
     paddingHorizontal: 0, 
-    paddingBottom: 140,
+    paddingBottom: 100,
   },
   item: {
     backgroundColor: '#1a2a35',

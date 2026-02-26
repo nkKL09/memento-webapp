@@ -13,7 +13,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import BackButton from '../../components/BackButton';
+import ScreenHeader from '../../components/ScreenHeader';
 import OptimizedImage from '../../components/OptimizedImage';
 import { getCardByNum } from '../LearningStack/loadCards.js';
 import monthsData from '../../data/months.js';
@@ -122,9 +122,7 @@ export default function DateEncoderScreen() {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
-        <BackButton />
-        <Text style={styles.header}>Дата</Text>
-
+        <ScreenHeader title="Дата" showBackButton />
         <View style={styles.fieldRow}>
           <Text style={styles.label}>День</Text>
           <TextInput
@@ -218,14 +216,7 @@ export default function DateEncoderScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
   scroll: { flex: 1 },
-  content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 100 },
-  header: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 40,
-    textAlign: 'center',
-  },
+  content: { paddingHorizontal: 20, paddingBottom: 100 },
   fieldRow: {
     flexDirection: 'row',
     alignItems: 'center',

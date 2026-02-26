@@ -2,7 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, Alert } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import BackButton from '../../../components/BackButton';
+import ScreenHeader from '../../../components/ScreenHeader';
 import { getExamHistory, clearExamHistory } from './examHistory';
 
 function formatDate(ts) {
@@ -78,8 +78,7 @@ export default function ExamHistoryScreen() {
 
   return (
     <View style={styles.container}>
-      <BackButton />
-      <Text style={styles.header}>История экзаменов</Text>
+      <ScreenHeader title="История экзаменов" showBackButton />
       {list.length === 0 ? (
         <Text style={styles.empty}>Пока нет сохранённых результатов. Пройдите экзамен.</Text>
       ) : (
@@ -102,7 +101,6 @@ export default function ExamHistoryScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', paddingTop: 18, marginBottom: 16 },
   empty: { fontSize: 16, color: '#94a3b8', paddingHorizontal: 20 },
   list: { paddingHorizontal: 20, paddingBottom: 40 },
   row: {

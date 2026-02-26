@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import BackButton from '../../../components/BackButton';
+import ScreenHeader from '../../../components/ScreenHeader';
 
 export default function IntroTestResultScreen() {
   const route = useRoute();
@@ -17,8 +17,7 @@ export default function IntroTestResultScreen() {
 
   return (
     <View style={styles.container}>
-      <BackButton />
-      <Text style={styles.header}>Результат</Text>
+      <ScreenHeader title="Результат" showBackButton />
       <Text style={styles.score}>Правильно: {correctCount} из {total}</Text>
       <Text style={styles.interpretation}>{interpretation}</Text>
       <View style={styles.buttons}>
@@ -35,7 +34,6 @@ export default function IntroTestResultScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24', paddingTop: 18, paddingHorizontal: 20 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 24 },
   score: { fontSize: 28, fontWeight: '700', color: '#49c0f8', textAlign: 'center', marginBottom: 16 },
   interpretation: { fontSize: 16, color: '#e2e8f0', lineHeight: 24, textAlign: 'center', marginBottom: 32 },
   buttons: { gap: 12 },

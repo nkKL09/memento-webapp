@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import BackButton from '../../components/BackButton';
+import ScreenHeader from '../../components/ScreenHeader';
+import { hapticImpact } from '../../telegramWebApp';
 
 const ENCODERS = [
   { id: 'phone', title: 'Номер телефона', description: '+7 (999) 123-45-67', screen: 'PhoneEncoderScreen' },
@@ -24,16 +25,17 @@ export default function EncodersScreen() {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      <BackButton />
-      <Text style={styles.header}>Кодировщики</Text>
-
+      <ScreenHeader title="Кодировщики" showBackButton />
       <View style={styles.tilesContainer}>
         {ENCODERS.map((item) => (
           <TouchableOpacity
             key={item.id}
             style={styles.tile}
             activeOpacity={0.8}
-            onPress={() => item.screen && navigation.navigate(item.screen)}
+            onPress={() => {
+              hapticImpact('light');
+              if (item.screen) navigation.navigate(item.screen);
+            }}
           >
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
@@ -46,14 +48,7 @@ export default function EncodersScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 100 },
-  header: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 40,
-    textAlign: 'center',
-  },
+  content: { paddingHorizontal: 20, paddingBottom: 100 },
   tilesContainer: { gap: 12 },
   tile: {
     backgroundColor: '#1a2a35',

@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import BackButton from '../../../components/BackButton';
+import ScreenHeader from '../../../components/ScreenHeader';
 import { generateIntroSequence } from './introTestUtils';
 
 export default function IntroTestInstructionScreen() {
@@ -15,8 +15,7 @@ export default function IntroTestInstructionScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-      <BackButton />
-      <Text style={styles.header}>Вводное тестирование</Text>
+      <ScreenHeader title="Вводное тестирование" showBackButton />
       <Text style={styles.paragraph}>
         Будет показано 20 двузначных чисел. Постарайтесь запомнить их в порядке следования.
       </Text>
@@ -34,8 +33,7 @@ export default function IntroTestInstructionScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 60 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 20 },
+  content: { paddingHorizontal: 20, paddingBottom: 60 },
   paragraph: { fontSize: 16, color: '#e2e8f0', lineHeight: 24, marginBottom: 12 },
   btnWrap: { width: '100%', alignItems: 'center', marginTop: 32 },
   button: {

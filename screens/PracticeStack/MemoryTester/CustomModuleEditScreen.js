@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import BackButton from '../../../components/BackButton';
+import ScreenHeader from '../../../components/ScreenHeader';
 import { addCustomModule, updateCustomModule, removeCustomModule } from './customModules';
 
 export default function CustomModuleEditScreen() {
@@ -58,8 +58,7 @@ export default function CustomModuleEditScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-      <BackButton />
-      <Text style={styles.header}>{isEdit ? 'Редактировать модуль' : 'Новый модуль'}</Text>
+      <ScreenHeader title={isEdit ? 'Редактировать модуль' : 'Новый модуль'} showBackButton />
 
       <Text style={styles.label}>Название модуля</Text>
       <TextInput
@@ -106,7 +105,6 @@ export default function CustomModuleEditScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
   content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 60 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 20 },
   label: { fontSize: 16, color: '#94a3b8', marginBottom: 8, marginTop: 16 },
   input: { fontSize: 18, color: '#ffffff', borderWidth: 2, borderColor: '#334155', borderRadius: 10, paddingVertical: 12, paddingHorizontal: 14 },
   textArea: { minHeight: 160, textAlignVertical: 'top' },

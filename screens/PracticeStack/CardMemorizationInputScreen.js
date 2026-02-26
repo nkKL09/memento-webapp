@@ -13,7 +13,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import BackButton from '../../components/BackButton';
+import ScreenHeader from '../../components/ScreenHeader';
 import playingCards from '../../data/playingCards.js';
 
 const TIME_OPTIONS = [
@@ -60,8 +60,7 @@ export default function CardMemorizationInputScreen() {
       keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
     >
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        <BackButton />
-        <Text style={styles.header}>Запоминание карт</Text>
+        <ScreenHeader title="Запоминание карт" showBackButton />
         <Text style={styles.hint}>Сколько карт запомнить? (можно больше 52 — каждая выбирается случайно)</Text>
         <TextInput
           style={styles.input}
@@ -112,8 +111,7 @@ export default function CardMemorizationInputScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  scrollContent: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 40 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 12 },
+  scrollContent: { paddingHorizontal: 20, paddingBottom: 40 },
   hint: { fontSize: 14, color: '#94a3b8', textAlign: 'center', marginBottom: 20 },
   input: {
     backgroundColor: '#1a2a35',

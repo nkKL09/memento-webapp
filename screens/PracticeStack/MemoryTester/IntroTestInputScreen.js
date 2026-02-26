@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Keyboard, InteractionManager } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import BackButton from '../../../components/BackButton';
+import ScreenHeader from '../../../components/ScreenHeader';
 
 const MAX_LEN = 2;
 
@@ -74,8 +74,7 @@ export default function IntroTestInputScreen() {
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView ref={scrollRef} style={styles.scroll} contentContainerStyle={[styles.scrollContent, keyboardVisible && { paddingBottom: 280 }]} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
-        <BackButton />
-        <Text style={styles.header}>Введите запомненные числа</Text>
+        <ScreenHeader title="Введите запомненные числа" showBackButton />
         <View style={styles.grid}>
           {Array.from({ length: 20 }, (_, i) => (
             <View key={i} style={styles.row}>
@@ -106,7 +105,6 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
   scroll: { flex: 1 },
   scrollContent: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 40 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 16 },
   grid: { marginBottom: 24 },
   row: { flexDirection: 'row', alignItems: 'center', marginBottom: 10 },
   label: { width: 28, fontSize: 16, color: '#e2e8f0' },

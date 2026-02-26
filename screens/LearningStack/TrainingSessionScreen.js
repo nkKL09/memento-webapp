@@ -10,7 +10,8 @@ import {
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { loadCards } from './loadCards.js';
 import { getProgress, addKnownAndSave, completeAndReset } from './trainingProgress.js';
-import BackButton from '../../components/BackButton';
+import { hapticImpact, hapticSelection, hapticNotification } from '../../telegramWebApp';
+import ScreenHeader from '../../components/ScreenHeader';
 import OptimizedImage from '../../components/OptimizedImage';
 
 const getCardId = (card) => (card && (card.num != null ? card.num : card.realName)) || '';
@@ -119,12 +120,14 @@ export default function TrainingSessionScreen() {
 
   const handleShuffle = () => {
     if (cards.length === 0) return;
+    hapticImpact('light');
     setCardIndex(Math.floor(Math.random() * cards.length));
     setIsFlipped(false);
   };
 
   const handleKnow = useCallback(async () => {
     if (cards.length === 0) return;
+    hapticImpact('medium');
     const id = getCardId(currentCard);
     const { knownIds } = await getProgress(catalogId, subRangeKey);
     const nextKnown = [...new Set([...knownIds, id])];
@@ -134,16 +137,19 @@ export default function TrainingSessionScreen() {
     if (nextRemaining.length === 0) {
       if (!sessionHadPostponedRef.current) {
         await completeAndReset(catalogId, subRangeKey);
+        hapticNotification('success');
       }
       setTimeout(() => navigation.goBack(), 180);
       return;
     }
+    hapticNotification('success');
     setCards(nextRemaining);
     setCardIndex((i) => (i >= nextRemaining.length ? nextRemaining.length - 1 : i));
   }, [cards, currentCard, catalogId, subRangeKey, navigation]);
 
   const handleRepeatLater = useCallback(() => {
     if (cards.length === 0) return;
+    hapticImpact('medium');
     sessionHadPostponedRef.current = true;
     const id = getCardId(currentCard);
     const nextRemaining = cards.filter((c) => getCardId(c) !== id);
@@ -180,7 +186,7 @@ export default function TrainingSessionScreen() {
   if (loading || !catalogId) {
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>Загрузка...</Text>
+        <ScreenHeader title="Загрузка..." showBackButton />
       </View>
     );
   }
@@ -191,22 +197,10 @@ export default function TrainingSessionScreen() {
       ? (sessionTitle || `${subRange || ''} — обучение`)
       : subRange;
 
-  const renderHeader = () =>
-    Platform.OS === 'web' ? (
-      <View style={styles.headerRow}>
-        <BackButton inRow />
-        <View style={styles.headerCenterWrap} pointerEvents="box-none">
-          <Text style={styles.headerWebCentered}>{headerTitle}</Text>
-        </View>
-      </View>
-    ) : (
-      <Text style={styles.headerCentered}>{headerTitle}</Text>
-    );
-
   if (!shuffleMode && cards.length === 0) {
     return (
       <View style={[styles.container, Platform.OS === 'web' && { paddingBottom: 90 }]}>
-        {renderHeader()}
+        <ScreenHeader title={headerTitle} showBackButton />
         <Text style={styles.emptyText}>Нет карточек для повторения</Text>
       </View>
     );
@@ -214,11 +208,14 @@ export default function TrainingSessionScreen() {
 
   return (
     <View style={[styles.container, Platform.OS === 'web' && { paddingBottom: 90 }]}>
-      {renderHeader()}
+      <ScreenHeader title={headerTitle} showBackButton />
 
       <TouchableOpacity
         style={styles.card}
-        onPress={() => setIsFlipped(!isFlipped)}
+        onPress={() => {
+          hapticSelection();
+          setIsFlipped(!isFlipped);
+        }}
         activeOpacity={0.95}
       >
         <View style={styles.cardContent}>
@@ -265,12 +262,7 @@ export default function TrainingSessionScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#121e24', paddingTop: 18, paddingHorizontal: 20 },
-  headerRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', minHeight: 48, position: 'relative' },
-  headerCenterWrap: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' },
-  headerWebCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', lineHeight: 40, textAlign: 'center' },
-  header: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', marginLeft: 12, flex: 1, lineHeight: 40 },
-  headerCentered: { fontSize: 34, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 40 },
+  container: { flex: 1, backgroundColor: '#121e24', paddingHorizontal: 20 },
   card: { width: '100%', height: 460, backgroundColor: '#1a2a35', borderRadius: 32, borderWidth: 6, borderColor: '#49c0f8', overflow: 'hidden', position: 'relative' },
   cardContent: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingBottom: 70 },
 

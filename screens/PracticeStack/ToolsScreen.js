@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import BackButton from '../../components/BackButton';
+import ScreenHeader from '../../components/ScreenHeader';
+import { hapticImpact } from '../../telegramWebApp';
 
 export default function ToolsScreen() {
   const navigation = useNavigation();
@@ -19,13 +20,14 @@ export default function ToolsScreen() {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      <BackButton />
-      <Text style={styles.header}>Инструменты</Text>
-
+      <ScreenHeader title="Инструменты" showBackButton />
       <View style={styles.tilesContainer}>
         <TouchableOpacity
           style={styles.tile}
-          onPress={() => navigation.navigate('EncodersScreen')}
+          onPress={() => {
+            hapticImpact('light');
+            navigation.navigate('EncodersScreen');
+          }}
           activeOpacity={0.8}
         >
           <Text style={styles.title}>Кодировщики</Text>
@@ -37,14 +39,7 @@ export default function ToolsScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 100 },
-  header: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 40,
-    textAlign: 'center',
-  },
+  content: { paddingHorizontal: 20, paddingBottom: 100 },
   tilesContainer: { gap: 12 },
   tile: {
     backgroundColor: '#1a2a35',

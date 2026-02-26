@@ -1,10 +1,12 @@
 // screens/LearningStack/TextbookTocScreen.js — оглавление учебника: все главы и статьи видны сразу
 import React, { useState, useCallback } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Platform } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { textbookChapters } from '../../content/textbook/index.js';
 import { getReadArticleIds, isArticleRead } from './textbookRead.js';
-import BackButton from '../../components/BackButton';
+import { isTelegramWebApp } from '../../telegramWebApp';
+import ScreenHeader from '../../components/ScreenHeader';
+import { hapticImpact } from '../../telegramWebApp';
 
 function ReadIcon({ read }) {
   return (
@@ -24,10 +26,12 @@ export default function TextbookTocScreen() {
     }, [])
   );
 
+  const isTwa = Platform.OS === 'web' && isTelegramWebApp();
+  const contentFirstStyle = isTwa ? styles.contentFirstTwa : styles.contentFirst;
+
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-      <BackButton />
-      <Text style={styles.header}>Учебник мнемотехники 2002</Text>
+    <ScrollView style={styles.container} contentContainerStyle={[styles.content, contentFirstStyle]} showsVerticalScrollIndicator={false}>
+      <ScreenHeader title="Учебник мнемотехники 2002" showBackButton />
       {textbookChapters.map((chapter) => (
         <View key={chapter.id} style={styles.chapterBlock}>
           <Text style={styles.chapterTitle}>{chapter.id}. {chapter.title}</Text>
@@ -35,7 +39,10 @@ export default function TextbookTocScreen() {
             <TouchableOpacity
               key={article.id}
               style={styles.articleRow}
-              onPress={() => navigation.navigate('TextbookArticle', { article })}
+              onPress={() => {
+                hapticImpact('light');
+                navigation.navigate('TextbookArticle', { article });
+              }}
               activeOpacity={0.8}
             >
               <Text style={styles.articleTitle} numberOfLines={2}>{article.id} {article.title}</Text>
@@ -50,8 +57,9 @@ export default function TextbookTocScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  content: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 100 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 28 },
+  content: { paddingHorizontal: 20, paddingBottom: 100 },
+  contentFirst: { paddingTop: 26 },
+  contentFirstTwa: { paddingTop: 0 },
   chapterBlock: { marginBottom: 28 },
   chapterTitle: { fontSize: 20, fontWeight: '700', color: '#49c0f8', marginBottom: 12 },
   articleRow: {

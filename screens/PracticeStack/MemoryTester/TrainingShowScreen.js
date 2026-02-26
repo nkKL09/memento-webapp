@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import BackButton from '../../../components/BackButton';
+import ScreenHeader from '../../../components/ScreenHeader';
 
 export default function TrainingShowScreen() {
   const route = useRoute();
@@ -33,7 +33,7 @@ export default function TrainingShowScreen() {
 
   return (
     <View style={styles.container}>
-      <BackButton />
+      <ScreenHeader title="Тренировка" showBackButton />
       {showIndex && <Text style={styles.counter}>Элемент {index + 1} из {sequence.length}</Text>}
       <View style={styles.valueWrap}>
         <Text style={styles.value} numberOfLines={2}>{current}</Text>

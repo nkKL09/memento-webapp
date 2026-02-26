@@ -3,7 +3,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import BackButton from '../../components/BackButton';
+import ScreenHeader from '../../components/ScreenHeader';
 
 const SUIT_SYMBOLS = { 'Т': '♣', 'Ч': '♥', 'Б': '♦', 'П': '♠' };
 const SUIT_COLORS = { 'Т': '#ffffff', 'Ч': '#ff4d4d', 'Б': '#ff4d4d', 'П': '#ffffff' };
@@ -33,9 +33,7 @@ export default function CardMemorizationResultsScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator>
-      <BackButton />
-      <Text style={styles.header}>Результаты</Text>
-
+      <ScreenHeader title="Результаты" showBackButton />
       <View style={styles.block}>
         <Text style={styles.label}>Время запоминания</Text>
         <Text style={styles.value}>{formatMs(timeMem)}</Text>
@@ -82,8 +80,7 @@ export default function CardMemorizationResultsScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#121e24' },
-  scrollContent: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 40 },
-  header: { fontSize: 28, fontWeight: 'bold', color: '#ffffff', textAlign: 'center', marginBottom: 24 },
+  scrollContent: { paddingHorizontal: 20, paddingBottom: 40 },
   block: { backgroundColor: '#1a2a35', borderRadius: 16, padding: 16, marginBottom: 12 },
   label: { fontSize: 14, color: '#94a3b8', marginBottom: 4 },
   value: { fontSize: 22, fontWeight: '600', color: '#ffffff' },
