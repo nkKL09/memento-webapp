@@ -36,6 +36,9 @@ function findTtfFiles(dir, names) {
 
 let html = fs.readFileSync(indexPath, 'utf8');
 
+// Убрать смешанный контент: все http:// в HTML заменить на https:// (скрипты, стили, ссылки)
+html = html.replace(/http:\/\//g, 'https://');
+
 const TELEGRAM_SCRIPT =
   '<script src="https://telegram.org/js/telegram-web-app.js"><\/script>';
 
@@ -103,4 +106,4 @@ fs.writeFileSync(
   'utf8'
 );
 
-console.log('scripts/patch-index-fonts.js: index.html обновлён (Telegram script, base, тёмный фон, полоска загрузки, preload шрифтов).');
+console.log('scripts/patch-index-fonts.js: index.html обновлён (http→https, Telegram script, base, тёмный фон, полоска загрузки, preload шрифтов).');
